@@ -1,0 +1,13 @@
+import {DatosPersonales} from './DatosPersonales'
+import {Dialogos} from './Dialogos'
+import {useHelper} from '../hooks/useHelper'
+import {Carrera} from './Carrera'
+import {Instrumento} from './Instrumento'
+import {Nivel} from './Nivel'
+import {Programa} from './Programa'
+import {Modalidad} from './Modalidad'
+import {Horario} from './Horario'
+import {Cuatrimestre} from './Cuatrimestre'
+import {Ubicacion} from './Ubicacion'
+import {Telefonos} from './Telefonos'
+
