@@ -6,7 +6,7 @@ export const Dialogos = ({open,procesarResultado,titulo,children,texto,procesarC
     const {datos,handleChangeCarrera} = useContext(formularioContext)
   
     return     <div>
-    <Dialog fullScreen={fullscreen || false} open={open} onClose={procesarResultado}>
+    <Dialog fullScreen={fullscreen || false} open={open || false} onClose={procesarResultado}>
       <DialogTitle style={{textAlign:fullscreen ? 'center' : ''}}>{titulo}</DialogTitle>
       <DialogContent style={{textAlign:fullscreen ? 'center' : ''}}>
         <DialogContentText>

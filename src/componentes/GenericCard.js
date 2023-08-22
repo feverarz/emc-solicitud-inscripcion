@@ -29,7 +29,7 @@ if (!mostrar){
 }
 
 return <>
-    <Card variant='outlined'>
+    <Card sx={{ borderRadius:'0px'}} elevation={0}>
         <CardHeader id={id} title={titulo}
                     titleTypographyProps={{
                         variant: "h6",
@@ -39,9 +39,9 @@ return <>
         /> 
         {activarLoading && <Box sx={{ width: '100%' }}>
             <Typography variant='body2'>{titulo}</Typography>
-            <LinearProgress title='Cargando'/>
+            <LinearProgress title='Cargando' color='secondary'/>
         </Box>}
-        {subtitulo && <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>{subtitulo}</Typography>}
+        {subtitulo && <Typography sx={{ fontSize: 14 }} align='left' color="text.secondary" gutterBottom>{subtitulo}</Typography>}
         {error &&  dobleMensajeError && <Alert severity="error">{mensajeError}</Alert>}
         <CardContent>
             {children}
@@ -49,6 +49,6 @@ return <>
         <CardActions>
         </CardActions>
     </Card>
-    {error && <Alert sx={{pb:'5rem',justifyContent:'center'}} severity="error">{mensajeError}</Alert>}
+    {error && <Alert sx={{justifyContent:'center'}} variant="outlined" severity="error">{mensajeError}</Alert>}
 </>
 }

@@ -15,7 +15,8 @@ export const SexosSelect = ()=>{
     const useStyle = makeStyles({
         selectpais: {
             background:datos.pais > 0 ? 'white' : 'gray',
-            color:'black'
+            color:'black',
+            textAlign:'left'
         },
         selectprovincia: {
             background:datos.provincia > 0 ? 'white' : 'gray',
@@ -30,8 +31,8 @@ export const SexosSelect = ()=>{
     }
 
     return <Box sx={{marginTop:'1rem'}}>
-                    <InputLabel style={{textAlign:'left'}} id="lbl-sexo">Sexo</InputLabel>
                     <FormControl fullWidth>
+                    <InputLabel style={{textAlign:'left'}} id="lbl-sexo">Sexo</InputLabel>
                         {/*<InputLabel id="demo-simple-select-label" color="secondary" variant='outlined'>País</InputLabel>*/}
                         <Select fullWidth
                             labelId="select-label-sexo"
@@ -42,7 +43,7 @@ export const SexosSelect = ()=>{
                             className={classes.selectpais}
                         >
                             {sexos.map(item=>{
-                                return <MenuItem value={item.id_insc_sexo}>{item.nombre}</MenuItem>
+                                return <MenuItem key={item.nombre} value={item.id_insc_sexo}>{item.nombre}</MenuItem>
                             })}
                         </Select>
                     </FormControl>

@@ -79,8 +79,8 @@ export const Nacionalidad = ()=>{
         </Dialogos>
         <Grid container spacing={2} alignItems='center'> 
             <Grid item xs={12} sm={6}>
-                <Box sx={{textAlign:'left'}}>
-                    <FormControlLabel control={<Switch color="primary" checked={argentino} onChange={handleChangeArgentino} />} label="Soy argentino/a" />
+                <Box sx={{textAlign:'left', minHeight:'50px'}}>
+                    <FormControlLabel control={<Switch fullWidth color="secondary" checked={argentino} onChange={handleChangeArgentino} />} label="Soy argentino/a" />
                 </Box>    
             </Grid>
             <Grid item xs={12} sm={6}>

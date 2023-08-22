@@ -11,7 +11,8 @@ export const Instrumento = ()=>{
     const useStyle = makeStyles({
         select: {
             background: 'white',
-            color:'black'
+            color:'black',
+            minWidth:'200px'
         }
       });
 
@@ -21,7 +22,7 @@ export const Instrumento = ()=>{
         return <p>Cargando...</p>
     }
 
-    return <Box sx={{display:'flex',flexDirection:'column',alignItems:'center' }}> 
+    return <Box sx={{display:'flex',flexDirection:'column',alignItems:'start'}}> 
                 <FormControl>
                         {/*<FormLabel id="demo-radio-buttons-group-label">Seleccioná un instrumento</FormLabel>
                         */}

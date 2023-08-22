@@ -54,10 +54,10 @@ export const Telefonos = ()=>{
                                   InputProps={{
                                     startAdornment: <InputAdornment className={classes.prefijos} position="start">+</InputAdornment>,
                                   }} 
-            fullWidth id="con-codint" autofocus inputProps={{maxLength: 3}} value={datos.cod_internacional} onChange={handleChangeCodInternacional} label={`Código internacional del país ${datos.otroPais}`} variant="filled"/>
+            fullWidth id="con-codint" autofocus inputProps={{maxLength: 3}} value={datos.cod_internacional} onChange={handleChangeCodInternacional} label={`Código internacional del país ${datos.otroPais}`} />
         </Box>}
         <Box sx={{marginTop:'1rem'}}>
-            <TextField  helperText='Por ejemplo 11 para Capital Federal' fullWidth id="con-codlocal" autofocus inputProps={{maxLength: 4}} value={datos.cod_area} onChange={handleChangeCodArea} label="Código de área local" variant="filled"/>
+            <TextField  helperText='Por ejemplo 11 para Capital Federal' fullWidth id="con-codlocal" autofocus inputProps={{maxLength: 4}} value={datos.cod_area} onChange={handleChangeCodArea} label="Código de área local" />
         </Box>
         <Box sx={{marginTop:'1rem'}}>
             <TextField fullWidth id="con-telefono" 
@@ -67,7 +67,7 @@ export const Telefonos = ()=>{
                       InputProps={{
                         startAdornment: <InputAdornment className={classes.prefijos} position="start">+{obtenerCodigoPais()} {obtenerCodArea()}</InputAdornment>,
                       }}
-            inputProps={{maxLength:obtenerLongitudTelefonoPermitida(), required:true}} value={datos.telefono} onChange={handleChangeTelefono} label="Teléfono fijo" variant="filled" />
+            inputProps={{maxLength:obtenerLongitudTelefonoPermitida(), required:true}} value={datos.telefono} onChange={handleChangeTelefono} label="Teléfono fijo"  />
         </Box>
         <Box sx={{marginTop:'1rem'}}>
             <TextField  fullWidth id="con-celular" 
@@ -76,15 +76,15 @@ export const Telefonos = ()=>{
                       InputProps={{
                         startAdornment: <InputAdornment  className={classes.prefijos} position="start">+{obtenerCodigoPais()} {obtenerCodArea()}</InputAdornment>,
                       }}
-            inputProps={{maxLength:obtenerLongitudTelefonoPermitida(), required:true}} value={datos.celular} onChange={handleChangeCelular} label="Número de celular" variant="filled" />
+            inputProps={{maxLength:obtenerLongitudTelefonoPermitida(), required:true}} value={datos.celular} onChange={handleChangeCelular} label="Número de celular" />
         </Box>
         <Box sx={{marginTop:'1rem'}}>
-            <TextField fullWidth id="con-email" type="email" inputProps={{maxLength: 200}} placeholder="nombre@ejemplo.com" value={datos.email} onChange={handleChangeEmail} label="E-mail" variant="filled" />
+            <TextField fullWidth id="con-email" type="email" inputProps={{maxLength: 200}} placeholder="nombre@ejemplo.com" value={datos.email} onChange={handleChangeEmail} label="E-mail" />
             {errorMail() && <p style={{color:'red'}}>{errorMail()}</p>}
         </Box>
         <Box sx={{marginTop:'1rem'}}>
             <TextField fullWidth id="outlined-basic" inputProps={{maxLength: 200}} value={datos.instagram} onChange={handleChangeInstagram} 
-            label="Perfil de instagram" variant="filled" 
+            label="Perfil de instagram"
             InputProps={{
                 startAdornment: <InputAdornment position="start">@</InputAdornment>,
               }}

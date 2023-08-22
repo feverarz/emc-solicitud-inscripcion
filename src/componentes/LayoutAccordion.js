@@ -1,5 +1,4 @@
 import React,{useState,useContext}  from 'react'
-import Axios from 'axios'
 import { Typography, Box,Accordion,AccordionSummary,AccordionDetails  } from "@material-ui/core";
 import { useTablasGenerales } from '../hooks/useTablasGenerales'
 import { formularioContext } from '../contextos/FormularioContext'

@@ -8,7 +8,7 @@ export const Modalidad = ()=>{
         handleChangeHorario,
         handleChangeModalidad} = useContext(formularioContext)
 
-        return <><Box sx={{ display:'flex',flexDirection:'column',alignItems:'center' }}> 
+        return <><Box sx={{ display:'flex',flexDirection:'column',alignItems:'start', justifyContent:'left'}}> 
         <Box sx={{}}>
             <FormControl>
                     {/*<FormLabel id="demo-radio-buttons-group-label">Modalidad preferencial de cursado</FormLabel>
@@ -19,7 +19,7 @@ export const Modalidad = ()=>{
                         value={datos.modalidad}
                         onChange={handleChangeModalidad}>
                             {modalidades.map(item=> <Tooltip placement="right-start" title={item.descripcion} arrow>
-                                <FormControlLabel value={item.id_insc_modalidad} control={<Radio />} label={item.nombre} />
+                                <FormControlLabel value={item.id_insc_modalidad} control={<Radio color='secondary' />} label={item.nombre} />
                             </Tooltip>)}
                     </RadioGroup>
             </FormControl>

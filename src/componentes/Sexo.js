@@ -42,6 +42,7 @@ export const Sexo = ()=>{
 
     return <Box sx={{marginTop:'1rem'}}> 
                 <FormControl fullWidth>
+                <InputLabel style={{textAlign:'left'}} id="lbl-tipo-doc">Tipo de documento</InputLabel>
                         {/*<FormLabel id="demo-radio-buttons-group-label">Seleccioná un género</FormLabel>*/}
                         <Select
                             fullWidth

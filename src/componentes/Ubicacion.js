@@ -207,13 +207,13 @@ export const Ubicacion = ()=>{
                             variant="outlined" />
         </Dialogos>
         <Box sx={{marginTop:'0.5rem'}}>
-            <TextField autoFocus fullWidth id="ub-domicilio" inputProps={{maxLength: 50, required:true}} value={datos.domicilio} onChange={handleChangeDomicilio} label="Domicilio completo" variant="filled" />
+            <TextField autoFocus fullWidth id="ub-domicilio" inputProps={{maxLength: 50, required:true}} value={datos.domicilio} onChange={handleChangeDomicilio} label="Domicilio completo" />
         </Box>
         <Box sx={{marginTop:'1rem'}}>
-            <TextField fullWidth id="ub-localidad" inputProps={{maxLength: 25}} value={datos.localidad} onChange={handleChangeLocalidad} label="Localidad" variant="filled" />
+            <TextField fullWidth id="ub-localidad" inputProps={{maxLength: 25}} value={datos.localidad} onChange={handleChangeLocalidad} label="Localidad" />
         </Box>
         <Box sx={{marginTop:'1rem'}}>
-            <TextField fullWidth id="ub-codpostal" inputProps={{maxLength: 10}} value={datos.codpostal} onChange={handleChangeCodPostal} label="Código postal" variant="filled" />
+            <TextField fullWidth id="ub-codpostal" inputProps={{maxLength: 10}} value={datos.codpostal} onChange={handleChangeCodPostal} label="Código postal" />
         </Box>
         <Box sx={{marginTop:'2rem'}}>
             <FormControl fullWidth>

@@ -7,8 +7,7 @@ export const Programa = ()=>{
     const { datos,handleChangePrograma,
         programas} = useContext(formularioContext)
 
-    return <><Box sx={{ display:'flex',flexDirection:'column',alignItems:'center' }}> 
-
+    return <><Box sx={{ display:'flex',flexDirection:'column',alignItems:'start', justifyContent:'left' }}> 
             <Box sx={{}}>
                 <FormControl>
                         {/*<FormLabel id="demo-radio-buttons-group-label">Programa</FormLabel>
@@ -19,7 +18,7 @@ export const Programa = ()=>{
                             value={datos.programa}
                             onChange={handleChangePrograma}>
                                 {programas.map(item=> <Tooltip placement="right-start" title={<>{item.descripcion}</>} arrow>
-                                    <FormControlLabel value={item.id_insc_programa} control={<Radio />} label={item.nombre} />
+                                    <FormControlLabel value={item.id_insc_programa} control={<Radio color='secondary' />} label={item.nombre} />
                                 </Tooltip>)}
                         </RadioGroup>
                 </FormControl>

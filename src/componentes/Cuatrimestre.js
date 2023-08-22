@@ -5,7 +5,7 @@ import { formularioContext } from '../contextos/FormularioContext'
 export const Cuatrimestre = ()=>{
     const { datos,handleChangeCuatrimestre,cuatrimestres} = useContext(formularioContext)
 
-    return <><Box sx={{ display:'flex',flexDirection:'column',alignItems:'center' }}> 
+    return <><Box sx={{ display:'flex',flexDirection:'column',alignItems:'start', justifyContent:'left' }}> 
 
     <Box sx={{}}>
         <FormControl>
@@ -16,7 +16,7 @@ export const Cuatrimestre = ()=>{
                     name="radio-buttons-group"
                     value={datos.cuatrimestre}
                     onChange={handleChangeCuatrimestre}>
-                        {cuatrimestres.map(item=><FormControlLabel value={item.id_insc_cuatrimestre} control={<Radio />} label={item.nombre}/>)}
+                        {cuatrimestres.map(item=><FormControlLabel value={item.id_insc_cuatrimestre} control={<Radio color='secondary' />} label={item.nombre}/>)}
                 </RadioGroup>
         </FormControl>
     </Box>

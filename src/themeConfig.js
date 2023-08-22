@@ -1,6 +1,14 @@
 import { createTheme  } from '@material-ui/core/styles';
 
 const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#000', // Modifica este valor con el color que desees para el color primario
+      },
+      secondary: {
+        main: '#ff0000',
+      },
+    },
     overrides: {
         MuiTooltip: {
             tooltip: {
@@ -14,17 +22,17 @@ const theme = createTheme({
         },
         MuiRadio: {
             root: {
-              color: 'blue',
+              color: '#000000',
             },
             colorSecondary: {
               '&$checked': {
-                color: 'blue',
+                color: '#ff0000',
               }
         }},
         MuiSwitch: {
             colorSecondary: {
               '&$checked': {
-                color: 'rgb(25, 118, 210)',
+                color: '#ff0000',
               }
         },
         switchBaseold: {
