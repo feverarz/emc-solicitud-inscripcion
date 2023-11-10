@@ -1,16 +1,14 @@
 import React, {useContext,useState} from 'react'
-import {TextField, Grid, Box ,Switch,FormGroup,FormControlLabel,Select,makeStyles ,InputLabel,MenuItem,FormControl,RadioGroup,Radio,FormLabel} from "@material-ui/core";
+import { Box, Select, makeStyles, InputLabel, MenuItem, FormControl } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
-import {Nacionalidad} from '../componentes/Nacionalidad'
-import {Sexo} from '../componentes/Sexo'
-import {Fecha} from '../componentes/Fecha'
-import {useHelper} from '../hooks/useHelper'
 
 export const SexosSelect = ()=>{
-    const { datos,
-        handleChangeTipoDoc,sexos,
-        handleChangeSexo,cargando,
-        datosPersonalesOK} = useContext(formularioContext)
+    const { 
+        datos,
+        sexos,
+        handleChangeSexo,
+        cargando,
+        } = useContext(formularioContext)
 
     const useStyle = makeStyles({
         selectpais: {
@@ -33,7 +31,6 @@ export const SexosSelect = ()=>{
     return <Box sx={{marginTop:'1rem'}}>
                     <FormControl fullWidth>
                     <InputLabel style={{textAlign:'left'}} id="lbl-sexo">Sexo</InputLabel>
-                        {/*<InputLabel id="demo-simple-select-label" color="secondary" variant='outlined'>País</InputLabel>*/}
                         <Select fullWidth
                             labelId="select-label-sexo"
                             id="sl-sexo"

@@ -1,12 +1,12 @@
-import React, {createContext} from 'react'
-import {useFormulario} from '../hooks/useFormulario'
-import {useTablasGenerales} from '../hooks/useTablasGenerales'
+import React, { createContext } from 'react'
+import { useFormulario } from '../hooks/useFormulario'
+import { useTablasGenerales } from '../hooks/useTablasGenerales'
 
 export const formularioContext = createContext()
 
 const Provider = formularioContext.Provider
 
-export const FormularioContextProvider = ({children})=>{ // Exporto el Provider
+export const FormularioContextProvider = ({children})=>{ 
 
     const { datos,
             handleChangeCarrera,
@@ -31,6 +31,7 @@ export const FormularioContextProvider = ({children})=>{ // Exporto el Provider
             handleChangeHorario,
             handleChangeModalidad,
             handleChangeTelefono,
+            handleChangeTelefonoEmergencia,
             handleChangeCelular,
             handleChangeEmail,
             handleChangeInstagram,
@@ -51,11 +52,22 @@ export const FormularioContextProvider = ({children})=>{ // Exporto el Provider
             errorMail,
             datosContactoOK,
             datosFinalesOK,
-            cerrar,procesando,
             handleChangeCarreras,
             handleChangeTipoTarjeta,
             handleChangeTarjeta,
-            datosPagoOK,error,codigoFinal,limpiarError,finalizar,reiniciar,imprimir} = useFormulario()
+            datosPagoOK,
+            error,
+            codigoFinal,
+            limpiarError,
+            finalizar,
+            reiniciar,
+            imprimir, 
+            verificarAlumnoExistente, 
+            alumnoNuevo, 
+            setAlumnoNuevo, 
+            alumnoActivo, 
+            resetForm
+        } = useFormulario()
 
     const { mensaje,
             provincias,
@@ -71,10 +83,10 @@ export const FormularioContextProvider = ({children})=>{ // Exporto el Provider
             sexos,
             tiposdoc,
             carreras,
-            error:errorTablasGenerales} = useTablasGenerales()
+            error:errorTablasGenerales
+        } = useTablasGenerales()
 
     const errorIntegrado = errorTablasGenerales ? errorTablasGenerales : error ? error : null
-    // En el value de Provider va todo lo que deseo compartir con los children
     return <Provider value={{datos,
                              paises,
                              provincias,
@@ -104,6 +116,7 @@ export const FormularioContextProvider = ({children})=>{ // Exporto el Provider
                              handleChangeHorario,
                              handleChangeModalidad,
                              handleChangeTelefono,
+                             handleChangeTelefonoEmergencia,
                              handleChangeCelular,
                              handleChangeEmail,
                              handleChangeInstagram,
@@ -114,7 +127,8 @@ export const FormularioContextProvider = ({children})=>{ // Exporto el Provider
                              handleChangeCodArea,
                              obtenerCodArea,
                              obtenerLongitudTelefonoPermitida,
-                             recuperaProvinciaAnterior,datosPersonalesOK,
+                             recuperaProvinciaAnterior,
+                             datosPersonalesOK,
                              nacionalidad,sexo,
                              datosUbicacionOK,
                              setNacionalidadArgentina,
@@ -123,7 +137,8 @@ export const FormularioContextProvider = ({children})=>{ // Exporto el Provider
                              resetearNacionalidad,
                              errorMail,
                              datosContactoOK,
-                             datosFinalesOK,finalizar,cerrar,procesando,
+                             datosFinalesOK,
+                             finalizar,
                              handleChangeCarreras,
                              horarios,
                              cuatrimestres,
@@ -137,7 +152,16 @@ export const FormularioContextProvider = ({children})=>{ // Exporto el Provider
                              handleChangeTarjeta,
                              datosPagoOK,
                              error:errorIntegrado,
-                             codigoFinal,limpiarError,reiniciar,imprimir}}> 
+                             codigoFinal,
+                             limpiarError,
+                             reiniciar,
+                             imprimir,
+                             verificarAlumnoExistente, 
+                             alumnoNuevo, 
+                             setAlumnoNuevo, 
+                             alumnoActivo, 
+                             resetForm
+                             }}> 
         <div>
             {children}
         </div>

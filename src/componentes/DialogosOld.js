@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {TextField,Button,DialogTitle,DialogContentText,DialogContent,DialogActions,Dialog} from "@material-ui/core";
+import { Button, DialogTitle, DialogContentText, DialogContent, DialogActions, Dialog } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
 
 export const Dialogos = ({estadoInicial=false,procesarResultado,titulo,children,texto,procesarCancelar})=>{

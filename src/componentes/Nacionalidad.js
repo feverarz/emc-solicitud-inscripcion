@@ -1,5 +1,5 @@
-import React, {useContext, useState, useEffect} from 'react'
-import {TextField, Box ,Switch,FormGroup,FormControlLabel,Select,makeStyles,MenuItem,FormControl,Button,Grid ,InputLabel} from "@material-ui/core";
+import React, { useContext, useState, useEffect } from 'react'
+import { TextField, Box, Switch, FormGroup, FormControlLabel, Select, makeStyles, MenuItem, FormControl, Button, Grid, InputLabel } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
 import {Dialogos} from './Dialogos'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -7,7 +7,12 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 export const Nacionalidad = ()=>{
     const { datos,
             nacionalidades,
-            cargando,handleChangeNacionalidad,setNacionalidadArgentina,handleChangeOtraNacionalidad,resetearNacionalidad} = useContext(formularioContext)
+            cargando,
+            handleChangeNacionalidad,
+            setNacionalidadArgentina,
+            handleChangeOtraNacionalidad,
+            resetearNacionalidad
+        } = useContext(formularioContext)
     const [argentino,setArgentino] = useState(datos.nacionalidad==4 ? true : false)
     const [otraNacionalidad,setOtraNacionalidad] = useState(false)
     const [error,setError] = useState(null)
@@ -80,13 +85,12 @@ export const Nacionalidad = ()=>{
         <Grid container spacing={2} alignItems='center'> 
             <Grid item xs={12} sm={6}>
                 <Box sx={{textAlign:'left', minHeight:'50px'}}>
-                    <FormControlLabel control={<Switch fullWidth color="secondary" checked={argentino} onChange={handleChangeArgentino} />} label="Soy argentino/a" />
+                    <FormControlLabel control={<Switch color="secondary" checked={argentino} onChange={handleChangeArgentino} />} label="Soy argentino/a" />
                 </Box>    
             </Grid>
             <Grid item xs={12} sm={6}>
             {!argentino && <><InputLabel style={{textAlign:'left'}} id="lbl-sexo">Nacionalidad</InputLabel>
                  <FormControl fullWidth>
-                        {/*<FormLabel sx={{marginLeft:0}} id="lb-nacionalidad">Seleccioná una nacionalidad</FormLabel>*/}
                         <Select fullWidth
                             labelId="lb-nacionalidad"
                             id="sl-nacionalidad"
@@ -111,48 +115,4 @@ export const Nacionalidad = ()=>{
             </Grid>
         </Grid>
     </Box>
-
-
-    return <Box sx={{marginTop:'1rem' }}> 
-            <Dialogos open={otraNacionalidad} 
-                            titulo='Ingresa una nacionalidad' 
-                            subtitulo='Nacionalidad' 
-                            procesarCancelar = {procesarCancelarOtraNacionalidad}
-                            procesarResultado={procesarNacionalidadIngresada}
-                            error={error}>
-                                    <TextField fullWidth id="tx-nacionalidad" 
-                                    inputProps={{maxLength: 30}} 
-                                    autoFocus
-                                    value={datos.otraNacionalidad} 
-                                    onChange={handleChangeOtraNacionalidad} 
-                                    label="Nueva nacionalidad" 
-                                    variant="outlined" />
-                </Dialogos>
-                <FormGroup>
-                    <FormControlLabel control={<Switch checked={argentino} onChange={handleChangeArgentino} />} label="Soy argentino/a" />
-                </FormGroup>
-                {!argentino && <FormControl fullWidth>
-                        {/*<FormLabel sx={{marginLeft:0}} id="lb-nacionalidad">Seleccioná una nacionalidad</FormLabel>*/}
-                        
-                        <Select fullWidth
-                            labelId="lb-nacionalidad"
-                            id="sl-nacionalidad"
-                            value={datos.nacionalidad}
-                            label="Nacionalidad"
-                            onChange={handleChangeNacionalidad}
-                            className={classes.select}
-                            variant='outlined'
-                            title='Nacionalidad'
-                        >
-                            <MenuItem value={-1} disabled>Selecciona tu nacionalidad</MenuItem>
-                            {nacionalidades.map(item=>{
-                                return <MenuItem value={item.id_nacionalidad}>{item.nombre}</MenuItem>
-                            })}
-                        </Select>
-                </FormControl>}
-                {datos.otraNacionalidad && <Box sx={{ display: 'flex',alignItems: 'center',justifyContent:'left' }}>
-                <p style={{textAlign:'left',margin:'0'}}>{datos.otraNacionalidad}</p>    
-                <Button title='Borrar nacionalidad' onClick={resetearNacionalidad}><DeleteOutlineIcon/></Button>                          
-                </Box>}  
-            </Box>
 }

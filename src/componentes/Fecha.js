@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -8,7 +8,6 @@ import esLocale from 'date-fns/locale/es';
 import { Box  } from "@material-ui/core";
 
 export const Fecha = ({titulo,fecha,setFecha})=>{
-
 
     return <Box sx={{marginTop:'1rem',textAlign:'left'}} >
             <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={esLocale}>

@@ -1,13 +1,13 @@
-import React, {useContext} from 'react'
-import {FormControlLabel,FormControl,RadioGroup,Radio,FormLabel,Box,Tooltip} from "@material-ui/core";
+import React, { useContext } from 'react'
+import { FormControlLabel, FormControl, RadioGroup, Radio, Box, Tooltip } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
 
-
 export const Nivel = ()=>{
-    const { datos,handleChangeNivel,niveles} = useContext(formularioContext)
+    const { datos, handleChangeNivel, niveles } = useContext(formularioContext)
 
-    return <><Box sx={{ display:'flex',flexDirection:'column',alignItems:'start', justifyContent:'left' }}>
-     <Box sx={{ }}> 
+    return <>
+    <Box sx={{ display:'flex',flexDirection:'column',alignItems:'start', justifyContent:'left' }}>
+        <Box> 
             <FormControl>
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"

@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import {Formulario} from './componentes/Formulario'
+import { Formulario } from './componentes/Formulario'
 import Logo from '../src/componentes/Logo'
-import {FormularioContextProvider} from './contextos/FormularioContext'
+import { FormularioContextProvider } from './contextos/FormularioContext'
 import theme from './themeConfig'
-import {ThemeProvider} from '@material-ui/core'
+import { ThemeProvider } from '@material-ui/core'
 
 function App() {
   return (

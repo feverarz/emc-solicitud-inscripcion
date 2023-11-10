@@ -1,9 +1,7 @@
-import React, {useContext} from 'react'
-import {TextField,Button,DialogTitle,DialogContentText,DialogContent,DialogActions,Dialog} from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
+import React from 'react'
+import { Button, DialogTitle, DialogContentText, DialogContent, DialogActions, Dialog} from "@material-ui/core";
 
-export const Dialogos = ({open,procesarResultado,titulo,children,texto,procesarCancelar,error,textoAceptar,fullscreen})=>{
-    const {datos,handleChangeCarrera} = useContext(formularioContext)
+export const Dialogos = ({ open, procesarResultado, titulo, children, texto, procesarCancelar, error, textoAceptar, fullscreen })=>{
   
     return     <div>
     <Dialog fullScreen={fullscreen || false} open={open || false} onClose={procesarResultado}>

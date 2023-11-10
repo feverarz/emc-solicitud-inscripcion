@@ -1,28 +1,16 @@
 import React, {useContext, useEffect, useRef,useState} from 'react'
-import {TextField, 
-        Button, 
-        Box ,
-        Typography,
-        Switch,
-        FormGroup,
-        FormControlLabel,
-        Select,makeStyles ,
-        InputLabel,
-        MenuItem,
-        FormControl,
-        RadioGroup,
-        Radio,
-        Paper,
-        Divider ,
-        InputBase,
-        FormLabel,InputAdornment } from "@material-ui/core";
+import {
+        TextField, 
+        Box,
+        makeStyles ,
+        InputAdornment 
+      } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-import {Dialogos} from './Dialogos'
 export const Telefonos = ()=>{
     const { datos,
             handleChangeTelefono,
+            handleChangeTelefonoEmergencia,
             handleChangeCelular,
             handleChangeEmail,
             handleChangeInstagram,
@@ -31,7 +19,9 @@ export const Telefonos = ()=>{
             obtenerCodArea,
             handleChangeCodInternacional,
             obtenerLongitudTelefonoPermitida,
-            handleChangeCodArea,errorMail} = useContext(formularioContext)
+            handleChangeCodArea,
+            errorMail
+          } = useContext(formularioContext)
 
 
     const useStyle = makeStyles({
@@ -77,6 +67,16 @@ export const Telefonos = ()=>{
                         startAdornment: <InputAdornment  className={classes.prefijos} position="start">+{obtenerCodigoPais()} {obtenerCodArea()}</InputAdornment>,
                       }}
             inputProps={{maxLength:obtenerLongitudTelefonoPermitida(), required:true}} value={datos.celular} onChange={handleChangeCelular} label="Número de celular" />
+        </Box>
+        <Box sx={{marginTop:'1rem'}}>
+            <TextField fullWidth id="con-telefonoEmergencia" 
+                     autofocus
+                     name='telefonoEmergencia'
+                     placeholder='Un número de teléfono de emergencia de algún familiar'
+                      InputProps={{
+                        startAdornment: <InputAdornment className={classes.prefijos} position="start">+{obtenerCodigoPais()} {obtenerCodArea()}</InputAdornment>,
+                      }}
+            inputProps={{maxLength:obtenerLongitudTelefonoPermitida(), required:true}} value={datos.telefono_emergencia} onChange={handleChangeTelefonoEmergencia} label="Teléfono emergencia"  />
         </Box>
         <Box sx={{marginTop:'1rem'}}>
             <TextField fullWidth id="con-email" type="email" inputProps={{maxLength: 200}} placeholder="nombre@ejemplo.com" value={datos.email} onChange={handleChangeEmail} label="E-mail" />

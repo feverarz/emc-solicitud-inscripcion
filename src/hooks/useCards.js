@@ -1,4 +1,4 @@
-import React, { useEffect,useState,useContext } from "react"
+import React, { useContext } from "react"
 
 import { formularioContext } from '../contextos/FormularioContext'
 
@@ -15,9 +15,13 @@ export const useCards = ()=>{
         error,
         limpiarError,
         codigoFinal,
-        finalizar,reiniciar,imprimir} = useContext(formularioContext)
+        finalizar,
+        reiniciar,
+        imprimir
+    } = useContext(formularioContext)
 
-    return {datos,
+    return {
+            datos,
             cargando,
             datosPersonalesOK,
             datosUbicacionOK,
@@ -25,6 +29,10 @@ export const useCards = ()=>{
             datosFinalesOK,
             datosPagoOK,
             error,
-            limpiarError,codigoFinal,
-            finalizar,reiniciar,imprimir}
+            limpiarError,
+            codigoFinal,
+            finalizar,
+            reiniciar,
+            imprimir
+        }
 }

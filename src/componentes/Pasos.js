@@ -1,13 +1,11 @@
 import React, {useContext} from 'react'
-import {Box,Stepper,Step,StepLabel,StepContent,StepButton,Button,Paper,Typography} from "@material-ui/core";
+import { Box, Stepper, Step, StepContent, StepButton, Button, Paper, Typography } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
-import {Telefonos} from './Telefonos'
 import {Cuatrimestre} from './Cuatrimestre'
 import {Carrera} from './Carrera'
 import {Modalidad} from './Modalidad'
 import {Instrumento} from './Instrumento'
 import {Ubicacion} from './Ubicacion'
-import {DatosPersonales} from './DatosPersonales'
 import {EnviarDatos} from './EnviarDatos'
 import {Finalizar} from './Finalizar'
 
@@ -70,7 +68,6 @@ export const Pasos = ()=>{
         <Box sx={{ maxWidth: 1000, bgcolor:'red' }}>
           <Stepper  nonLinear  activeStep={activeStep} orientation="vertical">
             {steps.map((step, index) => (
-//              <Step key={step.label}>
               <Step expanded={true} key={step.label}>
                    <StepButton color="inherit" onClick={handleStep(index)}>
                          {step.label}
@@ -80,9 +77,6 @@ export const Pasos = ()=>{
                   <Box sx={{mt:4, mb:4}}>
                         <ContenidoDinamico index={index}/>
                   </Box>
-               {/*   <Box sx={{ mb: 2 }}>
-                        <BotonesDinamicos steps={steps} index={index} handleNext={handleNext} handleBack={handleBack}/>
-              </Box>*/}
                 </StepContent>
               </Step>
             ))}
@@ -110,22 +104,3 @@ const ContenidoDinamico = ({index})=>{
         default:  return <EnviarDatos/>
     }
 } 
-
-const BotonesDinamicos = ({steps,index,handleBack,handleNext})=>{
-    return <div>
-        <Button
-        variant="contained"
-        onClick={handleNext}
-        sx={{ mt: 1, mr: 1 }}
-        >
-            {index === steps.length - 1 ? 'Finalizar' : 'Aceptar'}
-        </Button>
-        <Button
-        disabled={index === 0}
-        onClick={handleBack}
-        sx={{ mt: 1, mr: 1 }}
-        >
-            Volver
-        </Button>
-  </div>
-}

@@ -1,41 +1,53 @@
-import React, {useContext, useEffect, useRef,useState} from 'react'
-import {TextField, 
-        Button, 
+import React, { useEffect, useRef, useState } from 'react'
+import { 
         Box ,
         Typography,
-        Checkbox,
-        FormControlLabel,
-        Select,makeStyles ,
-        LinearProgress ,
-        Grid,
-        CardActions,
-        CardContent,
-        CardMedia,CardHeader } from "@material-ui/core";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import {Resumen,Finalizar,NumeroTarjeta,DatosPersonales,TiposTarjeta,Carrera,Instrumento,Nivel,Programa,Modalidad,Horario,Cuatrimestre,Ubicacion,Telefonos,GenericCard} from './index'
+        makeStyles,
+        LinearProgress
+     } from "@material-ui/core";
+import {Resumen,Finalizar,DatosPersonales,Carrera,Instrumento,Nivel,Programa,Modalidad,Horario,Cuatrimestre,Ubicacion,Telefonos,GenericCard} from './index'
 import {useHelper} from '../hooks/useHelper'
 import {useCards} from '../hooks/useCards'
 import {Dialogos} from '../componentes/Dialogos'
-
-import Alert from '@mui/material/Alert';
-import { useTimePickerDefaultizedProps } from '@mui/x-date-pickers/TimePicker/shared';
+import { BuscarAlumno } from './BuscarAlumno';
+import { Link } from '@mui/material';
+import { Reingresante } from './Reingresante';
+import Logo from './Logo';
 
 export const LayoutCards = ()=>{
     const { datos,
             error,
-            finalizar,
             limpiarError,
-            cargando,imprimir,
-            datosPagoOK, 
+            cargando,
+            imprimir,
             datosPersonalesOK,
             datosUbicacionOK,
             datosContactoOK,
-            datosFinalesOK,reiniciar,codigoFinal} = useCards()
-    const {fechaCambioFormato,hacerScroll} = useHelper()
+            datosFinalesOK,
+            reiniciar,
+            codigoFinal
+        } = useCards()
+    const {hacerScroll} = useHelper()
     const [activarLoading,setActivarLoading] =useState(false)
     const solicitudPreparada =  useRef(false)
     const [datosConfirmados,setDatosConfirmados] = useState(false)
     const [impresion,setImpresion] = useState("")
+    const [esReingresante, setEsReingresante] = useState(null)
+    const [iniciarFormulario, setIniciarFormulario ] = useState(false)
+    const [habilitarFin, setHabilitarFin ] = useState(false)
+
+    useEffect(() => {
+        if (habilitarFin) {
+            console.log('habilitando');
+        }
+    }, [habilitarFin]);
+
+    const habilitar = () => {
+        setHabilitarFin(true)
+        console.log('habilitando');
+    };
+
+
 
     const useStyle = makeStyles({
         selectpais: {
@@ -53,7 +65,7 @@ export const LayoutCards = ()=>{
       });
 
     useEffect(()=>{
-            if(datosPersonalesOK()[0] && solicitudPreparada.current==false){
+            if(datosPersonalesOK()[0] && solicitudPreparada.current===false){
                 setActivarLoading(true)
                 setTimeout(() => {
                     setActivarLoading(false)
@@ -90,19 +102,60 @@ export const LayoutCards = ()=>{
         return <p>Cargando...</p>
     }
 
-    return <Box sx={{display:'flex',maxWidth:'800px',marginLeft:'auto',marginRight:'auto', flexDirection:'column', padding:'1px', justifyContent:'center',background:'#E7EBF0'}}> 
-        {!activarLoading && <GenericCard titulo={datosPersonalesOK()[0] ? "Ingresá tus datos personales" : "Para iniciar la solicitud primero ingresá tus datos personales"}
+    return <Box 
+            sx={{
+                display:'flex',
+                maxWidth:'800px',
+                marginLeft:'auto',
+                marginRight:'auto', 
+                flexDirection:'column', 
+                padding:'10px', 
+                justifyContent:'center',
+                background:'#ffffff',
+                borderRadius: '4px',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+            }}> 
+            <Box
+            sx={{
+                padding:'20px 0',
+                alignSelf:'start',
+                paddingLeft:'16px'
+            }}>
+                <Typography variant="h4" >
+                    Solicitud de inscripción
+                </Typography>
+            </Box>
+        {!activarLoading && esReingresante === null && <GenericCard titulo={"Indique si es un nuevo alumno o desea re-inscribirse a la escuela"} mostrar={true}>
+            <Reingresante setEsReingresante={setEsReingresante} setIniciarFormulario={setIniciarFormulario} />
+        </GenericCard>
+
+        }
+        {!activarLoading && esReingresante && <GenericCard titulo={"Ingrese su tipo y número de documento"} mostrar={true}>
+            <BuscarAlumno setEsReingresante={setEsReingresante} setIniciarFormulario={setIniciarFormulario}/>
+        </GenericCard>
+
+        }
+        {!activarLoading && iniciarFormulario && <GenericCard titulo={datosPersonalesOK()[0] ? "Ingresá tus datos personales" : "Para iniciar la solicitud primero ingresá tus datos personales"}
+                        subtitulo={
+                            <>
+                                Presione en el siguiente enlace para volver atras: <Link sx={{ cursor: 'pointer' }} onClick={() => {
+                                    setEsReingresante(null)
+                                    setIniciarFormulario(false)
+                                    }} >
+                                Volver al inicio 
+                                </Link>
+                            </>
+                        }
                         id='tl-dpersonales' 
                         mostrar={true} 
                         error={!datosPersonalesOK()[0]}
                         mensajeError = {datosPersonalesOK()[1]}
-                        dobleMensajeError
                         noHacerScroll>
                     <DatosPersonales/>
             </GenericCard>}
         {activarLoading && <Box sx={{ width: '100%' }}>
-            <Typography variant='body2' color='primary'>Se está iniciando la solicitud</Typography>
-            <LinearProgress title='Cargando'/>
+            <Typography variant='body2' >Se está iniciando la solicitud</Typography>
+            <LinearProgress title='Cargando'color='secondary'/>
         </Box>}
         {datosPersonalesOK()[0] && !activarLoading && <div>
             <GenericCard titulo=" Ingresá tu ubicación" id='tl-ubicacion' 
@@ -123,7 +176,7 @@ export const LayoutCards = ()=>{
             <GenericCard titulo="Elegí una o más carreras para cursar" 
                             id='tl-carrera'
                             mostrar={datosContactoOK()[0]}
-                            error={datos.carreras.length==0}
+                            error={datos.carreras.length===0}
                             mensajeError={'Falta elegir una carrera para continuar'}>
                     <Carrera/>
             </GenericCard>
@@ -131,14 +184,14 @@ export const LayoutCards = ()=>{
                         id='tl-instrumento' 
                         //mostrar={datos.carrera.trim()!=''}
                         mostrar={datos.carreras.length>0}
-                        error={datos.instrumento==-1}
+                        error={datos.instrumento===-1}
                         mensajeError={'Falta elegir un instrumento para continuar'}>
                 <Instrumento/>
             </GenericCard>
             <GenericCard titulo="Elegí tu nivel de ingreso" 
                             id='tl-nivel'  
                             mostrar={datos.instrumento>0}
-                            error={datos.nivel==-1}
+                            error={datos.nivel===-1}
                             mensajeError={'Falta elegir un nivel para continuar'}>
                 <Nivel/>
             </GenericCard>
@@ -159,14 +212,14 @@ export const LayoutCards = ()=>{
             <GenericCard titulo="Elegí un cuatrimestre" 
                         id='tl-cuatrimestre' 
                         mostrar={datos.modalidad>0}
-                        error={datos.cuatrimestre==-1}
+                        error={datos.cuatrimestre===-1}
                         mensajeError={'Falta elegir un cuatrimestre para continuar'}>
                 <Cuatrimestre/>
             </GenericCard>
             <GenericCard titulo="Elegí un horario" 
                         id='tl-horario' 
                         mostrar={datos.cuatrimestre>0}
-                        error={datos.horario==-1}
+                        error={datos.horario===-1}
                         mensajeError={'Falta elegir un horario para continuar'}>
                 <Horario/>
             </GenericCard>
@@ -179,17 +232,18 @@ export const LayoutCards = ()=>{
                     subtitulo='Por favor verificá los datos ingresados'
                     >
                 {<Resumen confirmarDatos={confirmarDatos}/>}
-                {/*<Finalizar/>*/}
             </GenericCard>
-            <Dialogos open={datosConfirmados} 
-                    titulo='Para continuar por favor ingresá los datos de tu tarjeta y aceptá los términos y condiciones' 
-                    subtitulo='bla bla' 
+                <Dialogos open={datosConfirmados} 
+                    titulo='Para continuar por realice el pago correspondiente a la opcion elegida' 
+                    subtitulo='' 
                     procesarCancelar = {procesarCancelarFinalizacion}
-                    error={datosPagoOK()[1]}>
-                        <TiposTarjeta/>    
-                        <NumeroTarjeta/>   
-                        {datosPagoOK()[0] && <Fin procesar={procesarFinalizacion}/>}                         
-                   </Dialogos>
+                    >
+                        <a onClick={habilitar} href={'https://ventasonline.payway.com.ar/web/tienda/3420/escuela-de-m%C3%BAsica-contempor%C3%A1nea'} target="_blank" rel="noreferrer">
+                            Link de pago
+                        </a>
+                        <p color='red'>Una vez realizado el pago haz click en 'Generar la inscripción' para completar el formulario de inscripción</p>                                                
+                        <Fin habilitarFin={habilitarFin}></Fin>
+                </Dialogos>
         </div>}
         <Dialogos open={error} 
                     titulo='Se produjo un error' 
@@ -203,55 +257,44 @@ export const LayoutCards = ()=>{
                         </Box>
         </Dialogos>
         <Dialogos open={codigoFinal} 
-                    titulo='Solicitud enviada' 
+                    titulo='Se envió correctamente la solicitud' 
                     procesarResultado={reiniciar}
                     fullscreen={true}
                     >
                         <Box>
-                            <p>Por favor comunícate con administración informando el código de solicitud:</p>
                             <h3>{codigoFinal}</h3>
+                            <Typography variant="h3">{123145}</Typography>
+                            <br></br>
+                            <br></br>
+                            <div>
+                                <div>
+                                    <a href='https://wa.link/17hzkn' target='_blank'>ir a Whatsapp</a>
+                                    <br></br>
+                                    <br></br>
+                                    Número Whatsapp: (+54 11) 6441 – 1352
+                                </div>
+                                <div>
+                                    <br></br>
+                                    ó
+                                    <br></br>
+                                    <p>Telefono: (+54 11) 4382 – 8237</p>
+                                </div>
+                            </div>
                             <h4>Muchas gracias!</h4>
                             {/*<Button onClick={iniciarImpresion}>Imprimir</Button>*/}
                             <a target="_blank" href="http://www.escuelademusica.org/contacto/">Abrir la página de contacto</a>
                         </Box>
+                        <Logo width={'300'}></Logo>
         </Dialogos>
         { impresion && <iframe title="PDF Viewer" src={impresion} width="100%" height="600" />}
      </Box>
 }
 
-const Fin = ({procesar})=>{
-    const [acepto,setAcepto]= useState(false)
-    const [verTerminos,setVerTerminos]= useState(false)
-
-    const handleCheck = (e)=>{
-        setAcepto(e.target.checked)
-    }
-
-    return <Box>
-           
-            <Box sx={{display:'flex',alignItems:'center'}}>
-                <Checkbox  color="primary"  onChange={handleCheck} checked={acepto} />
-                <>
-                    He leído y acepto los <Button color='primary' style={{textTransform: 'none'}} variant='text' onClick={()=>setVerTerminos(true)}>
-                        términos y condiciones
-                    </Button>
-                </>
+const Fin = (props)=>{
+    const { habilitarFin } = props
+    return  <Box>
+                <Box sx={{marginTop:'2rem',display:'flex',justifyContent:'center'}}>  
+                    <Finalizar deshabilitar={!habilitarFin}/>
+                </Box>
             </Box>
-            
-            <Box sx={{marginTop:'2rem',display:'flex',justifyContent:'center'}}>  
-               <Finalizar deshabilitar={!acepto}/>
-          </Box>
-
-          <Dialogos open={verTerminos} 
-                    titulo='Términos y condiciones' 
-                    procesarResultado={()=>setVerTerminos(false)}
-                    >
-                        <>
-                        <Typography variant="subtitle1">Primer punto</Typography>
-                        <Typography variant="subtitle1">Segundo punto</Typography>
-                        <Typography variant="subtitle1">Tercer punto</Typography>
-
-                        </>
-            </Dialogos>
-    </Box>
 }

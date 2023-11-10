@@ -1,29 +1,21 @@
-import React, {useContext, useEffect, useRef,useState} from 'react'
-import {TextField, 
+import React, {useContext, useEffect, useRef, useState } from 'react'
+import {
+        TextField, 
         Button, 
-        Box ,
-        Typography,
-        Switch,
-        FormGroup,
-        FormControlLabel,
-        Select,makeStyles ,
-        InputLabel,
+        Box,
+        Select,
+        makeStyles,
         MenuItem,
-        FormControl,
-        RadioGroup,
-        Radio,
-        FormLabel,InputAdornment } from "@material-ui/core";
+        FormControl
+    } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-
-
-import {Dialogos} from './Dialogos'
+import { Dialogos } from './Dialogos'
 
 
 export const Ubicacion = ()=>{
     const { datos,
             handleChangeProvincia,
-            mensaje,
             paises,
             provincias,
             handleChangePais,
@@ -34,15 +26,12 @@ export const Ubicacion = ()=>{
             handleChangeLocalidad,
             cargando,resetearPais,
             resetearProvincia,
-            handleChangeCodInternacional,
-            recuperaProvinciaAnterior} = useContext(formularioContext)
-
-    const otroPaisText = useRef()
-    const otraProvinciaText = useRef()
-    const [otroPais,setOtropais] = useState(false)
-    const [otraProvincia,setOtraProvincia] = useState(false)
-    const [errorPais,setErrorPais] = useState(null)
-    const [errorProvincia,setErrorProvincia] = useState(null)
+            recuperaProvinciaAnterior
+        } = useContext(formularioContext)
+    const [ otroPais, setOtropais ] = useState(false)
+    const [ otraProvincia, setOtraProvincia ] = useState(false)
+    const [ errorPais, setErrorPais ] = useState(null)
+    const [ errorProvincia, setErrorProvincia ] = useState(null)
 
     useEffect(()=>{
         if(datos.pais==0 && (datos.otroPais.trim()=='' || datos.otraProvincia.trim()=='')){
@@ -217,7 +206,6 @@ export const Ubicacion = ()=>{
         </Box>
         <Box sx={{marginTop:'2rem'}}>
             <FormControl fullWidth>
-                        {/*<InputLabel id="demo-simple-select-label" color="secondary" variant='outlined'>País</InputLabel>*/}
                         <Select fullWidth
                             labelId="select-label-pais"
                             id="sl-pais"
@@ -240,7 +228,6 @@ export const Ubicacion = ()=>{
         </Box>
         <Box sx={{marginTop:'2rem'}}>
             <FormControl fullWidth>
-                    {/*<InputLabel sx={{ marginTop: '100rem' }}  id="demo-simple-select-label" color="secondary" variant='outlined'>Provincia</InputLabel>*/}
                     <Select fullWidth
                         labelId="select-label-provincia"
                         id="sl-provincia"

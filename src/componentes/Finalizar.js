@@ -1,25 +1,14 @@
-import React, {useContext, useEffect, useRef,useState} from 'react'
-import {TextField, 
+import React, { useContext } from 'react'
+import { 
         Button, 
-        Box ,
-        Typography,
-        Switch,
-        FormGroup,
-        FormControlLabel,
-        Select,makeStyles ,
-        InputLabel,
-        MenuItem,
-        FormControl,
-        RadioGroup,
-        Radio,
-        FormLabel,InputAdornment } from "@material-ui/core";
+        Box
+    } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
 import SendIcon  from '@mui/icons-material/Send';
 
 
 export const Finalizar = ({deshabilitar})=>{
-    const { datos,
-            cargando,datosPersonalesOK,sexo,finalizar} = useContext(formularioContext)
+    const { cargando, finalizar } = useContext(formularioContext)
 
     if (cargando) {
         return <p>Cargando...</p>

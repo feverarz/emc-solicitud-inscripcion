@@ -1,28 +1,35 @@
 
-import React, {useContext, useEffect, useRef,useState} from 'react'
-import {Card,Box,
-        CardActions,LinearProgress,Typography,
-        CardContent,CardHeader } from "@material-ui/core";
-import { TitleOutlined } from '@mui/icons-material';
+import React, { useEffect, useRef,useState} from 'react'
+import { Card, Box, CardActions, LinearProgress, Typography, CardContent, CardHeader } from "@material-ui/core";
 import {useHelper} from '../hooks/useHelper'
 import Alert from '@mui/material/Alert';
 
 export const GenericCard = ({titulo,children,id,mostrar,error,mensajeError,dobleMensajeError,noHacerScroll,subtitulo})=>{
-    const {hacerScroll} = useHelper()
-    const [activarLoading,setActivarLoading] =useState(false)
-
-    useEffect(()=>{
-        if(mostrar && !noHacerScroll){
-            setActivarLoading(true)
-            setTimeout(() => {
-                hacerScroll(id)
-            }, 500);
-            setTimeout(() => {
-                setActivarLoading(false)
-            }, 1500);
-        }
-    }
-    ,[mostrar])
+    const { hacerScroll } = useHelper();
+    const [activarLoading, setActivarLoading] = useState(false);
+  
+    const isMounted = useRef(true);
+  
+    useEffect(() => {
+      isMounted.current = true;
+  
+      if (mostrar && !noHacerScroll) {
+        setActivarLoading(true);
+        setTimeout(() => {
+          hacerScroll(id);
+        }, 500);
+  
+        setTimeout(() => {
+          if (isMounted.current) {
+            setActivarLoading(false);
+          }
+        }, 1500);
+      }
+  
+      return () => {
+        isMounted.current = false;
+      };
+    }, [mostrar]);
 
 if (!mostrar){
     return null
@@ -41,7 +48,7 @@ return <>
             <Typography variant='body2'>{titulo}</Typography>
             <LinearProgress title='Cargando' color='secondary'/>
         </Box>}
-        {subtitulo && <Typography sx={{ fontSize: 14 }} align='left' color="text.secondary" gutterBottom>{subtitulo}</Typography>}
+        {subtitulo && <Typography sx={{ fontSize: 14 }} align='left' gutterBottom>{subtitulo}</Typography>}
         {error &&  dobleMensajeError && <Alert severity="error">{mensajeError}</Alert>}
         <CardContent>
             {children}

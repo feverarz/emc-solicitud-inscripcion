@@ -1,62 +1,57 @@
-import React,{useState,useContext}  from 'react'
-import { Typography, Box,Accordion,AccordionSummary,AccordionDetails  } from "@material-ui/core";
-import { useTablasGenerales } from '../hooks/useTablasGenerales'
+import React, { useState, useContext }  from 'react'
+import { Typography,  Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
-import {Carrera} from './Carrera'
-import {Cuatrimestre} from './Cuatrimestre'
-import {Programa} from './Programa'
-import {Ubicacion} from './Ubicacion'
-import {Modalidad} from './Modalidad'
-import {Horario} from './Horario'
-import {Instrumento} from './Instrumento'
-import {Comenzar} from './Comenzar'
-import {Nivel} from './Nivel'
+import { Carrera } from './Carrera'
+import { Cuatrimestre } from './Cuatrimestre'
+import { Programa } from './Programa'
+import { Ubicacion } from './Ubicacion'
+import { Modalidad } from './Modalidad'
+import { Horario } from './Horario'
+import { Instrumento } from './Instrumento'
+import { Comenzar } from './Comenzar'
+import { Nivel } from './Nivel'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { DatosPersonales } from './DatosPersonales';
 
 
 
 export const LayoutAccordion = ()=>{
-    const [age, setAge] = useState('');
-    const { datos,mandarMensaje,cargando,datosPersonalesOK } = useContext(formularioContext)
+    const { cargando } = useContext(formularioContext)
 
-    
     if (cargando) {
         return <p>Cargando...</p>
     }
 
-    
     return <div style={{display:'flex'}}>
-    <table>
+        <table>
             <tbody>
                 <tr>
-                        <td>
-                            <Accordion>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1a-content"
-                                    id="panel1a-header">
-                                    <Typography>Ingresa tus datos personales</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Comenzar/>
-                                </AccordionDetails>
-                            </Accordion>
-                        </td>
-                        <td>
-                            <Accordion>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1a-content"
-                                    id="panel1a-header">
-                                    <Typography>Selecciona una carrera</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Carrera/>
-                                </AccordionDetails>
-                            </Accordion>                          
+                    <td>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header">
+                                <Typography>Ingresa tus datos personales</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Comenzar/>
+                            </AccordionDetails>
+                        </Accordion>
+                    </td>
+                    <td>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header">
+                                <Typography>Selecciona una carrera</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Carrera/>
+                            </AccordionDetails>
+                        </Accordion>                          
 
-                        </td>
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -102,15 +97,15 @@ export const LayoutAccordion = ()=>{
                     </td>
                     <td>
                         <Accordion>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header">
-                                            <Typography>Elegí una modalidad de cursado</Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Modalidad/>
-                                        </AccordionDetails>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header">
+                                <Typography>Elegí una modalidad de cursado</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Modalidad/>
+                            </AccordionDetails>
                         </Accordion>
                     </td>
                 </tr>
@@ -130,36 +125,35 @@ export const LayoutAccordion = ()=>{
                     </td>    
                     <td>
                         <Accordion>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header">
-                                            <Typography>Elegí tu horario preferencial</Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Horario/>
-                                        </AccordionDetails>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header">
+                                <Typography>Elegí tu horario preferencial</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Horario/>
+                            </AccordionDetails>
                         </Accordion>
                     </td>
                 </tr>
                 <tr>
                     <td>    
                         <Accordion>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header">
-                                            <Typography>Cargá los datos de tu lugar de residencia </Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Ubicacion/>
-                                        </AccordionDetails>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header">
+                                <Typography>Cargá los datos de tu lugar de residencia </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Ubicacion/>
+                            </AccordionDetails>
                         </Accordion>               
                         </td>
                     </tr>
-                       </tbody>
-                        </table>
-                    
-    </div>
+            </tbody>
+        </table>            
+        </div>
 
 }

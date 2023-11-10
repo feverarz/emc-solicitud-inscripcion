@@ -1,13 +1,14 @@
-import React, { useEffect,useState } from "react"
+import { useState } from "react"
 import Axios from 'axios'
 import { useTablasGenerales } from "./useTablasGenerales"
-import {useHelper} from '../hooks/useHelper'
-import { Password } from "@mui/icons-material";
+import { useHelper } from '../hooks/useHelper'
 
 const regex_solo_numeros = /^[0-9\b]+$/;
 const regex_visa = /^4[0-9]{12}(?:[0-9]{3})?$/;
 
-const objetoInicial = {carreras:[],
+
+const objetoInicial = {
+    carreras:[],
     cuatrimestre:-1,
     pais:1, 
     provincia:1,
@@ -18,7 +19,7 @@ const objetoInicial = {carreras:[],
     codpostal:'',
     nombre:'',
     apellido:'',
-    tipo_doc:-1,
+    tipo_doc:1,
     documento:'',
     sexo:-1,
     nacionalidad:4, // argentino
@@ -30,97 +31,32 @@ const objetoInicial = {carreras:[],
     modalidad:-1,
     telefono:'',
     celular:'',
+    telefono_emergencia:'',
     email:'',
     instagram:'',
     cod_area:11,
     cod_internacional:54,
- provinciaAnterior:'',
- otraNacionalidad:'',
- tipo_tarjeta:'',
- nro_tarjeta:''}
+    provinciaAnterior:'',
+    otraNacionalidad:'',
+    tipo_tarjeta:'',
+    nro_tarjeta:''
+}
 
-/* const objetoInicialTEST = {carreras:[2],
-    cuatrimestre:1,
-    pais:1, 
-    provincia:1,
-    otroPais:'',
-    otraProvincia:'',
-    localidad:'lanus',
-    domicilio:'pedernera 3333',
-    codpostal:'1826',
-    nombre:'laura',
-    apellido:'zorinks',
-    tipo_doc:1,
-    documento:'64985315',
-    sexo:1,
-    nacionalidad:4, // argentino
-    fecha_nac:'27/03/1974',
-    instrumento:1,
-    nivel:1,
-    programa:1,
-    horario:1,
-    modalidad:1,
-    telefono:'5549461',
-    celular:'3216511',
-    email:'pablo.david.st@gmail.com',
-    instagram:'',
-    cod_area:11,
-    cod_internacional:54,
- provinciaAnterior:'',
- otraNacionalidad:'',
- tipo_tarjeta:'',
- nro_tarjeta:'4545 4545 4545 4545'}
-*/
 export const useFormulario = ()=>{
-    const {esFechaValida,verificarSiFechaEsPosteriorNanios,verificarSiFechaEsAnteriorNanios,validarEmail} = useHelper()
+    const { esFechaValida, verificarSiFechaEsPosteriorNanios, verificarSiFechaEsAnteriorNanios, validarEmail } = useHelper()
 
-    const {paises,provincias,tiposdoc,sexos,nacionalidades} = useTablasGenerales()
-    const [datos,setDatos] = useState(objetoInicial)
+    const { paises, provincias, tiposdoc, sexos, nacionalidades } = useTablasGenerales()
+    const [ datos, setDatos ] = useState(objetoInicial)
+    const [ error, setError ] = useState(null)
+    const [ codigoFinal, setCodigoFinal ] = useState(null)
+    const [ alumnoNuevo, setAlumnoNuevo ] = useState(null)
+    const [ alumnoActivo, setAlumnoActivo ] = useState(false)
 
-/*
-const [datos,setDatos] = useState({carrera:'',
-                                    carreras:[1],
-                                    cuatrimestre:'1',
-                                    usuario:'',
-                                    pais:1, 
-                                    provincia:1,
-                                    otroPais:'',
-                                    otraProvincia:'',
-                                    localidad:'LANUS',
-                                    domicilio:'PEDERNERA 3333',
-                                    codpostal:'1826',
-                                    nombre:'PABLO',
-                                    apellido:'STOLARCZUK',
-                                    tipo_doc:'1',
-                                    documento:'23865621',
-                                    sexo:1,
-                                    nacionalidad:16,
-                                    fecha_nac:'27/03/1974',
-                                    instrumento:3,
-                                    nivel:1,
-                                    programa:1,
-                                    horario:1,
-                                    modalidad:1,
-                                    telefono:'42301570',
-                                    celular:'54943001',
-                                    email:'pablo.david.st@gmail.com',
-                                    instagram:'',
-                                    cod_area:11,
-                                    cod_internacional:54,
-                                 provinciaAnterior:'',
-                                 otraNacionalidad:''})
-*/
-            const [cerrar,setCerrar] = useState(false)
-            const [procesando,setProcesando] = useState(false)
-            const [error,setError] = useState(null)
-            const [codigoFinal,setCodigoFinal] = useState(null)
+    const resetForm = () => {
+        setDatos(objetoInicial)
+    }
 
-/*
-useEffect(()=>{
-   setDatos({...datos,sexo:1,tipo_doc:1,cuatrimestre:1,instrumento:1,modalidad:1,programa:1,horario:1,nivel:1})
-},[]) 
-*/
-     const handleChangeCarrera = (event) => {
+      const handleChangeCarrera = (event) => {
         setDatos({...datos,carrera:Number(event.target.value)});
       };
 
@@ -129,9 +65,9 @@ useEffect(()=>{
       };
 
       const handleChangeTarjeta = (event) => {
-        const formatoTarjeta = event.target.value.split("").filter(item=>item!=' ').map((item,index)=>{
+        const formatoTarjeta = event.target.value.split("").filter(item=>item!==' ').map((item,index)=>{
             const multiploCuatro = index%4
-            return multiploCuatro==0 && index>3 ? ` ${item}` : item
+            return multiploCuatro===0 && index>3 ? ` ${item}` : item
         }).join("")
 
         setDatos({...datos,nro_tarjeta:formatoTarjeta});
@@ -139,15 +75,14 @@ useEffect(()=>{
 
 
       const handleChangeCarreras = (event) => {
-
-            const verificarExistencia = datos.carreras.some(item=>item==event.target.name)
-            
-            if(verificarExistencia){
-                const copia = datos.carreras.filter(item=>item!=event.target.name)
-                setDatos({...datos,carreras:[...copia]})
-            }else{
-                setDatos({...datos,carreras:[...datos.carreras,Number(event.target.name)]})
-            }
+        const verificarExistencia = datos.carreras.some(item=>item===event.target.name)
+        
+        if(verificarExistencia){
+            const copia = datos.carreras.filter(item=>item!==event.target.name)
+            setDatos({...datos,carreras:[...copia]})
+        }else{
+            setDatos({...datos,carreras:[...datos.carreras,Number(event.target.name)]})
+        }
       };
 
     const handleChangeNivel = (event) => {
@@ -164,7 +99,7 @@ useEffect(()=>{
 
     const handleChangePais = (event) => {
         const copia = [...provincias]
-        const primerProvincia = copia.filter(item=>item.id_pais==Number(event.target.value)).sort((a,b)=>a.nombre.localeCompare(b.nombre)).map(item=>item.id_provincia)
+        const primerProvincia = copia.filter(item=>item.id_pais===Number(event.target.value)).sort((a,b)=>a.nombre.localeCompare(b.nombre)).map(item=>item.id_provincia)
         setDatos({...datos,
                     pais:Number(event.target.value),
                     provincia:Number(event.target.value)>0 ? primerProvincia[1]:0,
@@ -191,17 +126,23 @@ useEffect(()=>{
     };
 
     const handleChangeTelefono = (event) => {
-        if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()=='')
+        if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()==='')
         {
-            setDatos({...datos,telefono:event.target.value.trim()=='' ? '' : event.target.value});
+            setDatos({...datos,telefono:event.target.value.trim()==='' ? '' : event.target.value});
+        }
+    };
+
+    const handleChangeTelefonoEmergencia = (event) => {
+        if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()==='')
+        {
+            setDatos({...datos,telefono_emergencia:event.target.value.trim()==='' ? '' : event.target.value});
         }
     };
 
     const handleChangeCelular = (event) => {
-       // setDatos({...datos,celular:event.target.value});
-        if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()=='')
+        if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()==='')
         {
-            setDatos({...datos,celular:event.target.value.trim()=='' ? '' : event.target.value});
+            setDatos({...datos,celular:event.target.value.trim()==='' ? '' : event.target.value});
         } 
     };
 
@@ -232,23 +173,12 @@ useEffect(()=>{
     const handleChangeApellido = (event) => {
         setDatos({...datos,apellido:event.target.value.toUpperCase()});
     };
-/*
-    const handleChangeDocumento = (event) => {
-        if(datos.tipo_doc=='dni' || datos.tipo_doc=='ci'){
-            if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()==''){
-                setDatos({...datos,documento:event.target.value});
-            }
-        }else{
-            setDatos({...datos,documento:event.target.value.toUpperCase()});
-        }
-    };*/
 
     const handleChangeDocumento = (event) => {
+        const tipoDato = tiposdoc.filter(item=>item.id_insc_tipodoc===datos.tipo_doc)[0].tipo
 
-        const tipoDato = tiposdoc.filter(item=>item.id_insc_tipodoc==datos.tipo_doc)[0].tipo
-
-        if(tipoDato=='number'){
-            if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()==''){
+        if(tipoDato==='number'){
+            if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()===''){
                 setDatos({...datos,documento:event.target.value});
             }
         }else{
@@ -289,9 +219,9 @@ useEffect(()=>{
     };
 
     const handleChangeCodArea = (event) => {
-        if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()=='')
+        if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()==='')
             {
-                setDatos({...datos,cod_area:event.target.value.trim()=='' ? '' : Number(event.target.value)});
+                setDatos({...datos,cod_area:event.target.value.trim()==='' ? '' : Number(event.target.value)});
             }
     };
 
@@ -300,15 +230,14 @@ useEffect(()=>{
     }
 
     const handleChangeCodInternacional = (event) => {
-       // setDatos({...datos,cod_internacional:event.target.value});
-        if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()=='')
+        if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()==='')
         {
-            setDatos({...datos,cod_internacional:event.target.value.trim()=='' ? '' : Number(event.target.value)});
+            setDatos({...datos,cod_internacional:event.target.value.trim()==='' ? '' : Number(event.target.value)});
         }
     };
 
     const codigoAreaSegunPais = (id_pais)=>{
-        const paisSeleccionado = paises.filter(item=>item.id_pais==id_pais)
+        const paisSeleccionado = paises.filter(item=>item.id_pais===id_pais)
 
         if(paisSeleccionado[0].nombre.toUpperCase().includes('ARGENTINA')){
                 return 11
@@ -327,11 +256,11 @@ useEffect(()=>{
 
     const resetearProvincia = () => {
 
-        if(datos.pais==0){
+        if(datos.pais===0){
             setDatos({...datos,provincia:0,otraProvincia:'',provinciaAnterior:datos.otraProvincia})
         }else{
             const copia = [...provincias]
-            const primerProvincia = copia.filter(item=>item.id_pais==datos.pais).sort((a,b)=>a.nombre.localeCompare(b.nombre)).map(item=>item.id_provincia)
+            const primerProvincia = copia.filter(item=>item.id_pais===datos.pais).sort((a,b)=>a.nombre.localeCompare(b.nombre)).map(item=>item.id_provincia)
             setDatos({...datos,provincia:primerProvincia[1],otraProvincia:''});
         }
        
@@ -339,21 +268,21 @@ useEffect(()=>{
 
     const mandarMensaje = async ()=>{
         const objeto = {...datos}
-       // const objeto = {nombre:datos.nombre,apellido:datos.apellido,fecha_nac:datos.fecha_nac}
 
-        try{
-
-//            const {data} = await Axios.post(process.env.NODE_ENV =='development' ? 'http://localhost:3002/api/tablasgenerales/nuevoalumno' : 'http://190.111.232.123:5010/api/tablasgenerales/nuevoalumno',objeto,{
+        try {
+//            const {data} = await Axios.post(process.env.NODE_ENV ==='development' ? 'http://localhost:3002/api/tablasgenerales/nuevoalumno' : 'http://190.111.232.123:5010/api/tablasgenerales/nuevoalumno',objeto,{
             const {data} = await Axios.post(`${process.env.REACT_APP_API_BASE}/api/tablasgenerales/nuevoalumno`,objeto,{
             headers: {
                   'content-type': 'application/json'
                 }})
                 return data.codigo
-        }catch(err){
+        } catch(err) {
             // aquí capturo el error que viene de axios y lo trae err.response.data 
             // en .data puedo encontrar lo que envío desde el request como json
             // para que la función que llama a esta lo interprete como un error debo forzarlo con throw Error
             // y lo va a recibir en err.message
+
+            // todo: aca podria crear algun flag para informar al front que el alumno existe o que ya está hecha la solicitud
             console.log(err.response)
             throw new Error(err.response.data.codigo)
         }
@@ -362,12 +291,11 @@ useEffect(()=>{
     const obtenerCodigoPais = (id_pais)=>{
         const pais = id_pais ? id_pais : datos.pais
 
-        if (pais==0){
+        if (pais===0){
             return datos.cod_internacional
         }
 
-        const filter = paises.filter(item=>item.id_pais==pais).map(item=>item.cod_telefonico)
-        //return paises.length == 0 ? 0 : paises[datos.pais].cod_telefonico ? paises[datos.pais].cod_telefonico : 0
+        const filter = paises.filter(item=>item.id_pais===pais).map(item=>item.cod_telefonico)
         return filter[0] ? filter[0] : 0
     }
 
@@ -380,31 +308,58 @@ useEffect(()=>{
     }
 
     const recuperaProvinciaAnterior = ()=>{
-        if(datos.pais==0){
+        if(datos.pais===0){
             setDatos({...datos,otraProvincia:datos.provinciaAnterior});
         }else{
             const copia = [...provincias]
-            const primerProvincia = copia.filter(item=>item.id_pais==datos.pais).sort((a,b)=>a.nombre.localeCompare(b.nombre)).map(item=>item.id_provincia)
+            const primerProvincia = copia.filter(item=>item.id_pais===datos.pais).sort((a,b)=>a.nombre.localeCompare(b.nombre)).map(item=>item.id_provincia)
             setDatos({...datos,provincia:primerProvincia[1],otraProvincia:''});
         }
+    }
+
+    async function verificarAlumnoExistente(tipo_doc, dni) {
+
+        try{
+            console.log(dni)
+            const { data } = await Axios.get(`${process.env.REACT_APP_API_BASE}/api/alumnos/verificar-dni/${dni}`)
+            console.log(data)
+            if (data.Existe) {
+                setDatos({...datos,documento:dni, tipo_doc:tipo_doc});
+                setAlumnoNuevo(false)
+            } 
+            if (!data.Existe) setAlumnoNuevo(true) 
+            if (data.Existe && data.Activo) {
+                setAlumnoActivo(true)
+            }
+            if (data.Existe && !data.Activo) {
+                alert('alumno inactivo comunicate con la escuela por favor.') 
+            }
+            return data
+
+        }catch(err){
+            console.log(err)
+            alert('2 Tenemos un problema de conexión. Por favor intentá más tarde o comunicate con la escuela')
+        }
+
+
     }
 
     const datosPersonalesOK = ()=>{
 
 
-        if(datos.nombre.trim()==''){
+        if(datos.nombre.trim()===''){
              return [false,'Falta completar tu nombre']
         }
 
-        if(datos.apellido.trim()==''){
+        if(datos.apellido.trim()===''){
             return [false,'Falta completar tu apellido']
         }
 
-        if(datos.tipo_doc==-1){
+        if(datos.tipo_doc===-1){
             return [false,'Falta completar el tipo de documento']
         }
        
-       if(datos.documento.trim()==''){
+       if(datos.documento.trim()===''){
         return [false,'Falta completar tu número de documento']
     }
 
@@ -420,15 +375,15 @@ useEffect(()=>{
         return [false,'El apellido ingresado parece ser demasiado corto (tiene menos de 3 caracteres)']
     }
 
-    if(datos.nacionalidad==-1){
+    if(datos.nacionalidad===-1){
         return [false,'Falta seleccionar tu nacionalidad']
     }
 
-    if(datos.nacionalidad==69 && datos.otraNacionalidad.trim()==''){
+    if(datos.nacionalidad===69 && datos.otraNacionalidad.trim()===''){
         return [false,'Falta seleccionar tu nacionalidad']
     }
 
-        if(datos.fecha_nac?.toString().trim()==''){
+        if(datos.fecha_nac?.toString().trim()===''){
             return [false,'Falta completar tu fecha de nacimiento']
         }
 
@@ -444,7 +399,7 @@ useEffect(()=>{
             return [false,'La fecha de nacimiento ingresada no es válida o es demasiado antigua']
         }
 
-        if(datos.sexo==-1){
+        if(datos.sexo===-1){
             return [false,'Falta seleccionar el campo sexo']
         }
 
@@ -454,15 +409,15 @@ useEffect(()=>{
     const datosUbicacionOK = ()=>{
 
 
-        if(datos.domicilio.trim()==''){
+        if(datos.domicilio.trim()===''){
              return [false,'Falta completar tu domicilio']
         }
 
-        if(datos.localidad.trim()==''){
+        if(datos.localidad.trim()===''){
             return [false,'Falta completar tu localidad']
         }
        
-       if(datos.codpostal.trim()==''){
+       if(datos.codpostal.trim()===''){
         return [false,'Falta completar el código postal']
         }
 
@@ -478,23 +433,23 @@ useEffect(()=>{
             return [false,'El código postal debe ser al menos de 4 caracteres']
         }
 
-        if(datos.pais<1 && datos.otroPais.trim()==''){
+        if(datos.pais<1 && datos.otroPais.trim()===''){
             return [false,'Falta ingresar el nombre del nuevo país']
         }
 
-        if(datos.pais<1 && datos.otraProvincia.trim()==''){
+        if(datos.pais<1 && datos.otraProvincia.trim()===''){
             return [false,'Falta ingresar el nombre de la nueva provincia']
         }
 
-        if(datos.provincia<1 && datos.otraProvincia.trim()==''){
+        if(datos.provincia<1 && datos.otraProvincia.trim()===''){
             return [false,'Falta ingresar el nombre de la nueva provincia']
         }
 
-        if(datos.pais>0 && datos.otroPais.trim()!=''){
+        if(datos.pais>0 && datos.otroPais.trim()!==''){
             return [false,'El valor del campo Otro país no es compatible con el país seleccionado']
         }
 
-        if(datos.provincia>0 && datos.otraProvincia.trim()!=''){
+        if(datos.provincia>0 && datos.otraProvincia.trim()!==''){
             return [false,'El valor del campo Otra provincia no es compatible con la provincia seleccionada']
         }
 
@@ -503,15 +458,15 @@ useEffect(()=>{
 
     const datosContactoOK = ()=>{
 
-       if(datos.pais==0 && (Number(datos.cod_internacional))==0){
+       if(datos.pais===0 && (Number(datos.cod_internacional))===0){
             return [false,`Falta completar el código internacional para el pais ${datos.otroPais}`]
        }
 
-       if(Number(datos.cod_area)==0){
+       if(Number(datos.cod_area)===0){
             return [false,'Falta completar el código telefónico de área local']
        }
 
-        if(datos.telefono.trim()==''){
+        if(datos.telefono.trim()===''){
              return [false,'Falta completar tu número de teléfono']
         }
 
@@ -519,7 +474,7 @@ useEffect(()=>{
             return [false,`El número de teléfono fijo ingresado es demasiado largo (Máximo:15 números)`]
         }
 
-        if(datos.celular.trim()==''){
+        if(datos.celular.trim()===''){
             return [false,'Falta completar tu número de celular']
         }
        
@@ -527,7 +482,7 @@ useEffect(()=>{
             return [false,`El número de celular ingresado es demasiado largo (Máximo:15 números)`]
         }
 
-       if(datos.email.trim()==''){
+       if(datos.email.trim()===''){
         return [false,'Falta completar tu correo electrónico']
         }
 
@@ -535,52 +490,19 @@ useEffect(()=>{
             return [false,'El e-mail ingresado parece ser inválido']
         }
 
-
-    /*   if(datos.domicilio.trim().length < 5){
-        return [false,'El domicilio debe ser al menos de 5 caracteres']
-        }
-        
-        if(datos.localidad.trim().length < 5){
-            return [false,'La localidad debe ser al menos de 5 caracteres']
-        }
-
-        if(datos.codpostal.trim().length < 4){
-            return [false,'El código postal debe ser al menos de 4 caracteres']
-        }
-
-        if(datos.pais<1 && datos.otroPais.trim()==''){
-            return [false,'Falta ingresar el nombre del nuevo país']
-        }
-
-        if(datos.pais<1 && datos.otraProvincia.trim()==''){
-            return [false,'Falta ingresar el nombre de la nueva provincia']
-        }
-
-        if(datos.provincia<1 && datos.otraProvincia.trim()==''){
-            return [false,'Falta ingresar el nombre de la nueva provincia']
-        }
-
-        if(datos.pais>0 && datos.otroPais.trim()!=''){
-            return [false,'El valor del campo Otro país no es compatible con el país seleccionado']
-        }
-
-        if(datos.provincia>0 && datos.otraProvincia.trim()!=''){
-            return [false,'El valor del campo Otra provincia no es compatible con la provincia seleccionada']
-        }
-*/
         return [true,null]
     }
 
     const nacionalidad = ()=>{
-        return nacionalidades.filter(item=>item.id_nacionalidad==datos.nacionalidad).map(item=>item.nombre)
+        return nacionalidades.filter(item=>item.id_nacionalidad===datos.nacionalidad).map(item=>item.nombre)
     }
 
     const sexo = ()=>{
-        return sexos.filter(item=>item.id==datos.sexo).map(item=>item.nombre)
+        return sexos.filter(item=>item.id===datos.sexo).map(item=>item.nombre)
     }
 
     const errorMail = ()=>{
-        if(validarEmail(datos.email) || datos.email.trim()==''){
+        if(validarEmail(datos.email) || datos.email.trim()===''){
             return null
         }else{
             return 'El e-mail ingresado parece incorrecto'
@@ -600,63 +522,35 @@ useEffect(()=>{
             return datosContactoOK()
         }
 
-       /* if(datos.carrera.trim()==''){
-            return [false,'Falta elegir una arrera']
-        }
-        */
-        if(datos.carreras.length==0){
+        if(datos.carreras.length===0){
             return [false,'Falta elegir una carrera']
         }
 
-      /*  if(datos.horario.trim()==''){
-            return [false,'Falta elegir un horario']
-        }
-*/
-        if(datos.horario==-1){
+        if(datos.horario===-1){
             return [false,'Falta elegir un horario']
         }
 
-       /* if(datos.programa.trim()==''){
-            return [false,'Falta elegir un programa']
-        }*/
-
-        if(datos.programa==-1){
+        if(datos.programa===-1){
             return [false,'Falta elegir un programa']
         }
 
-        /*if(datos.cuatrimestre.trim()==''){
-            return [false,'Falta elegir un cuatrimestre']
-        }*/
-
-        if(datos.cuatrimestre==-1){
+        if(datos.cuatrimestre===-1){
             return [false,'Falta elegir un cuatrimestre']
         }
 
-        /*if(datos.nivel.trim()==''){
-            return [false,'Falta elegir un nivel']
-        }*/
-
-        if(datos.nivel==-1){
+        if(datos.nivel===-1){
             return [false,'Falta elegir un nivel']
         }
 
-        /*if(datos.nivel.trim()==''){
-            return [false,'Falta elegir un nivel']
-        }*/
-
-        if(datos.nivel==-1){
+        if(datos.nivel===-1){
             return [false,'Falta elegir un nivel']
         }
 
-/*        if(datos.modalidad.trim()==''){
-            return [false,'Falta elegir una modalidad']
-        }*/
-
-        if(datos.modalidad==-1){
+        if(datos.modalidad===-1){
             return [false,'Falta elegir una modalidad']
         }
 
-        if(!datos.instrumento || datos.instrumento==-1){
+        if(!datos.instrumento || datos.instrumento===-1){
             return [false,'Falta seleccionar un intrumento']
         }
 
@@ -669,11 +563,11 @@ useEffect(()=>{
             return datosFinalesOK()
         }
 
-        if(datos.tipo_tarjeta.trim()==''){
+        if(datos.tipo_tarjeta.trim()===''){
             return [false,'Falta completar el tipo de tarjeta']
             }
 
-        if(datos.nro_tarjeta.trim()==''){
+        if(datos.nro_tarjeta.trim()===''){
             return [false,'Falta completar el número de tarjeta']
         }
 
@@ -685,9 +579,7 @@ useEffect(()=>{
         if(!regex_visa.test(datos.nro_tarjeta.replace(/\s/g,"").trim())){
             return [false,'El número de tarjeta debe ser VISA']
         }
-       // ^4[0-9]{12}(?:[0-9]{3})?$
 
-      
         return [true,'']
 
     }
@@ -716,7 +608,7 @@ useEffect(()=>{
 
     const imprimir = async ()=>{
         try{
-            const {data} = await Axios.get(process.env.NODE_ENV =='development' ? 'http://localhost:3002/api/tablasgenerales/apiimpresion':'http://190.111.232.123:5010/api/tablasgenerales/apiimpresion')
+            const {data} = await Axios.get(process.env.NODE_ENV === 'development' ? 'http://localhost:3002/api/tablasgenerales/apiimpresion':'http://190.111.232.123:5010/api/tablasgenerales/apiimpresion')
             const primero = data.blob()
 
             const pdfBlob = new Blob([primero], { type: 'application/pdf' });
@@ -731,7 +623,9 @@ useEffect(()=>{
 
     }
 
-    return {datos,
+    return {
+            datos,
+            setDatos,
             handleChangeCarrera,
             handleChangeCuatrimestre,
             mandarMensaje,
@@ -755,6 +649,7 @@ useEffect(()=>{
             handleChangeHorario,
             handleChangeModalidad,
             handleChangeTelefono,
+            handleChangeTelefonoEmergencia,
             handleChangeCelular,
             handleChangeEmail,
             handleChangeInstagram,
@@ -777,13 +672,20 @@ useEffect(()=>{
             datosContactoOK,
             datosFinalesOK,
             finalizar,
-            procesando,
-            cerrar,
             handleChangeCarreras,
             handleChangeTipoTarjeta,
             handleChangeTarjeta,
             datosPagoOK,
-            error,codigoFinal,reiniciar,imprimir,
-            limpiarError}
+            error,
+            codigoFinal,
+            reiniciar,
+            imprimir,
+            limpiarError,
+            verificarAlumnoExistente,
+            alumnoNuevo, 
+            setAlumnoNuevo, 
+            alumnoActivo,
+            resetForm
+        }
 }
 

@@ -13,8 +13,7 @@ export const FechaNacimiento = ({titulo,fecha,setFecha})=>{
       }}
       value={fecha} // siempre debe venir en formato yyyy-mm-dd
       InputLabelProps={{
-        shrink: true,
-        marginTop: '-16px'
+        shrink: true
       }}
       name="Fechanacimiento"
     />

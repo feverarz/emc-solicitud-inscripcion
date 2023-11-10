@@ -1,9 +1,7 @@
 import React, {useContext,useState,useEffect} from 'react'
-import {TextField, Grid, Box ,Select,makeStyles ,InputLabel,MenuItem,FormControl} from "@material-ui/core";
+import {TextField, Grid, Box, Select, makeStyles, InputLabel, MenuItem, FormControl } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
-import {Nacionalidad} from '../componentes/Nacionalidad'
-import {Sexo} from '../componentes/Sexo'
-import {Fecha} from '../componentes/Fecha'
+import { Nacionalidad } from '../componentes/Nacionalidad'
 import {useHelper} from '../hooks/useHelper'
 import {SexosSelect} from '../componentes/SexosSelect'
 import {FechaNacimiento} from '../componentes/FechaNacimiento'
@@ -13,14 +11,12 @@ export const DatosPersonales = ()=>{
         handleChangeApellido,
         handleChangeDocumento,
         handleChangeNombre,
-        handleChangeNacionalidad,
         handleChangeFechaNac,
-        handleChangeTipoDoc,tiposdoc,
-        handleChangeSexo,cargando,
-        datosPersonalesOK} = useContext(formularioContext)
-        const {obtenerFechaDiamenosN,validarFechaPosteriorNanios} = useHelper()
+        handleChangeTipoDoc,
+        tiposdoc,
+        cargando
+        } = useContext(formularioContext)
 
-        const [fecha,setFecha] = useState('')//new Date())
         const [longitudDoc,setLongitudDoc]= useState(0)
 
 useEffect(() => {
@@ -66,7 +62,6 @@ useEffect(() => {
                 <Box sx={{marginTop:'1rem'}}>
                     <FormControl fullWidth>
                     <InputLabel style={{textAlign:'left'}} id="lbl-tipo-doc">Tipo de documento</InputLabel>
-                        {/*<InputLabel id="demo-simple-select-label" color="secondary" variant='outlined'>País</InputLabel>*/}
                         <Select fullWidth
                             labelId="select-label-tipodoc"
                             id="sl-tipodoc"
@@ -98,20 +93,5 @@ useEffect(() => {
 
         </Grid>
         <Nacionalidad/>   
-    </Box>
-              
-    return <Box sx={{display:'flex',flexDirection:'column'}}> 
-            <Box sx={{marginTop:'1rem'}}>
-                <TextField fullWidth inputProps={{maxLength: 25}} id="dp-nombre" autoFocus value={datos.nombre} onChange={handleChangeNombre} label="Nombre" variant="outlined" />
-            </Box>
-            <Box sx={{marginTop:'1rem'}}>
-                <TextField fullWidth inputProps={{maxLength: 25}} id="dp-apellido" value={datos.apellido} onChange={handleChangeApellido} label="Apellido" variant="outlined" />
-            </Box>
-            <Box sx={{marginTop:'1rem'}}>
-                <TextField fullWidth inputProps={{maxLength: 25}} id="dp-documento" value={datos.documento} onChange={handleChangeDocumento} label="Nro. de documento" variant="outlined" />
-            </Box>
-            <Fecha titulo='Fecha de nacimiento' fecha={datos.fecha_nac} setFecha={handleChangeFechaNac}/>      
-            <Nacionalidad/>
-            <Sexo/>
-        </Box>
+    </Box>      
 }

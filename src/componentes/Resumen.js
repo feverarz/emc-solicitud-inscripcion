@@ -1,25 +1,19 @@
-import React, {useContext, useEffect, useRef,useState} from 'react'
+import React, { useContext, useState } from 'react'
 import {Button, 
-        Box ,
-        ListItemText,
+        Box,
         Divider,
-        ListItem,
-        FormControlLabel,
-        Select,makeStyles ,
-        InputLabel,
-        MenuItem,
         Grid,
-        Typography,
-        Radio,
-        FormLabel,InputAdornment } from "@material-ui/core";
+        Typography
+     } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
-import {useHelper} from '../hooks/useHelper'
+import { useHelper } from '../hooks/useHelper'
 import Checkcon  from '@mui/icons-material/Check';
-import { lightBlue } from '@material-ui/core/colors';
+import { TerminosCondiciones } from './TerminosCondiciones';
 
 export const Resumen = ({confirmarDatos})=>{
-    const { datos,provincias,paises,carreras,instrumentos,niveles,programas,modalidades,horarios,cuatrimestres,tiposdoc,nacionalidades,sexos } = useContext(formularioContext)
+    const { datos, provincias, paises, carreras, instrumentos, niveles, programas, modalidades, horarios, cuatrimestres, tiposdoc, nacionalidades, sexos } = useContext(formularioContext)
     const {fechaCambioFormato} = useHelper()
+    const [terminosCondiciones, setTerminosCondiciones] = useState(false)
 
     return <Box sx={{display:'flex', flexDirection:'column'}}> 
                    <Divider />
@@ -178,9 +172,10 @@ export const Resumen = ({confirmarDatos})=>{
                     </Box>
                </Grid> 
           </Grid>    
-
+               {/* aca van los terminos y condiciones, 'acepta los terminos y condiciones y luego confirma los datos */}
+          <TerminosCondiciones setTerminosCondiciones={setTerminosCondiciones} terminosCondiciones={terminosCondiciones}></TerminosCondiciones>
            <Box sx={{marginTop:'2rem'}}>  
-               <Button onClick={confirmarDatos} variant="outlined" color='primary' size='large' endIcon={<Checkcon />}>
+               <Button onClick={confirmarDatos} disabled={!terminosCondiciones} variant="outlined" color='primary' size='large' endIcon={<Checkcon />}>
                     Los datos son correctos
                </Button>    
           </Box>

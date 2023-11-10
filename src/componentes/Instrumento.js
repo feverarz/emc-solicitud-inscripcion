@@ -1,7 +1,6 @@
 import React, {useContext} from 'react'
-import {TextField, Button, Box ,Switch,FormGroup,FormControlLabel,Select,makeStyles ,InputLabel,MenuItem,FormControl,RadioGroup,Radio,FormLabel} from "@material-ui/core";
+import { Box, Select, makeStyles, MenuItem, FormControl } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
-import {Nivel} from './Nivel'
 
 export const Instrumento = ()=>{
     const { datos,
@@ -24,8 +23,6 @@ export const Instrumento = ()=>{
 
     return <Box sx={{display:'flex',flexDirection:'column',alignItems:'start'}}> 
                 <FormControl>
-                        {/*<FormLabel id="demo-radio-buttons-group-label">Seleccioná un instrumento</FormLabel>
-                        */}
                         <Select
                             labelId="lb-instrumento"
                             id="sl-instrumento"
@@ -38,7 +35,6 @@ export const Instrumento = ()=>{
                             {instrumentos.map(item=>{
                                 return <MenuItem value={item.id_instrumento}>{item.nombre}</MenuItem>
                             })}
-
                         </Select>
                 </FormControl>
             </Box>

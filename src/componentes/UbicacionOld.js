@@ -1,38 +1,32 @@
-import React, {useContext, useEffect, useRef,useState} from 'react'
-import {TextField, 
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import {
         Button, 
         Box ,
         Typography,
-        Switch,
-        FormGroup,
-        FormControlLabel,
-        Select,makeStyles ,
+        makeStyles ,
         LinearProgress ,
         Card,
         CardActions,
         CardContent,
-        CardMedia,CardHeader } from "@material-ui/core";
+        CardHeader 
+    } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import {DatosPersonales} from './DatosPersonales'
-import {Dialogos} from './Dialogos'
-import {useHelper} from '../hooks/useHelper'
-import {Carrera} from './Carrera'
-import {Instrumento} from './Instrumento'
-import {Nivel} from './Nivel'
-import {Programa} from './Programa'
-import {Modalidad} from './Modalidad'
-import {Horario} from './Horario'
-import {Cuatrimestre} from './Cuatrimestre'
-import {Ubicacion} from './Ubicacion'
-import {Telefonos} from './Telefonos'
+import { DatosPersonales } from './DatosPersonales'
+import { useHelper } from '../hooks/useHelper'
+import { Carrera } from './Carrera'
+import { Instrumento } from './Instrumento'
+import { Nivel } from './Nivel'
+import { Programa } from './Programa'
+import { Modalidad } from './Modalidad'
+import { Horario } from './Horario'
+import { Cuatrimestre } from './Cuatrimestre'
+import { Ubicacion } from './Ubicacion'
+import { Telefonos } from './Telefonos'
 import Alert from '@mui/material/Alert';
-import { useTimePickerDefaultizedProps } from '@mui/x-date-pickers/TimePicker/shared';
 
 export const LayoutCards = ()=>{
-    const { datos,
-            cargando,datosPersonalesOK,datosUbicacionOK} = useContext(formularioContext)
-    const {fechaCambioFormato,hacerScroll} = useHelper()
+    const { datos, cargando, datosPersonalesOK, datosUbicacionOK } = useContext(formularioContext)
+    const { hacerScroll } = useHelper()
     const [abrirDialogo,setAbrirDialogo] = useState(true)
     const [error,setError] = useState(null)
     const [activarLoading,setActivarLoading] =useState(false)
@@ -46,7 +40,6 @@ export const LayoutCards = ()=>{
     const refCuatrimestre = useRef()
     const refHorario = useRef()
     const refUbicacion = useRef()
-    const refContacto = useRef()
 
     const useStyle = makeStyles({
         selectpais: {

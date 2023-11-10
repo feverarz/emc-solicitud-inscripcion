@@ -1,18 +1,9 @@
-import React, {useContext, useEffect, useRef,useState} from 'react'
-import {TextField, 
+import React, {useContext, useState} from 'react'
+import {
         Button, 
-        Box ,
-        Typography,
-        Switch,
-        FormGroup,
-        FormControlLabel,
-        Select,makeStyles ,
-        InputLabel,
-        MenuItem,
-        FormControl,
-        RadioGroup,
-        Radio,
-        FormLabel,InputAdornment } from "@material-ui/core";
+        Box,
+        makeStyles
+        } from "@material-ui/core";
 import { formularioContext } from '../contextos/FormularioContext'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import {DatosPersonales} from './DatosPersonales'
@@ -20,14 +11,11 @@ import {Dialogos} from './Dialogos'
 import {useHelper} from '../hooks/useHelper'
 
 export const Comenzar = ()=>{
-    const { datos,
-            cargando,datosPersonalesOK,nacionalidad,sexo} = useContext(formularioContext)
-    const {fechaCambioFormato} = useHelper()
-    const [abrirDialogo,setAbrirDialogo] = useState(false)
-    const [error,setError] = useState(null)
+    const { datos, cargando, datosPersonalesOK, nacionalidad, sexo}  = useContext(formularioContext)
+    const { fechaCambioFormato } = useHelper()
+    const [ abrirDialogo, setAbrirDialogo ] = useState(false)
+    const [ error, setError ] = useState(null)
    
-
-
     const useStyle = makeStyles({
         selectpais: {
             background:datos.pais > 0 ? 'white' : '#D3D3D3',
