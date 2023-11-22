@@ -262,8 +262,7 @@ export const LayoutCards = ()=>{
                     fullscreen={true}
                     >
                         <Box>
-                            <h3>{codigoFinal}</h3>
-                            <Typography variant="h3">{123145}</Typography>
+                            <Typography variant="h3">{codigoFinal}</Typography>
                             <br></br>
                             <br></br>
                             <div>
