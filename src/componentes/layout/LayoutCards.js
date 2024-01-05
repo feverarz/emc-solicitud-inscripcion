@@ -202,7 +202,7 @@ export const LayoutCards = ()=>{
                             mensajeError={'Falta elegir un programa para continuar'}>
                 <Programa/>
             </GenericCard>
-            <GenericCard titulo="Elegí una modalidad" 
+            <GenericCard titulo="Elegí una modalidad preferencial de cursado" 
                         id='tl-modalidad' 
                         mostrar={datos.programa>0}
                         error={datos.modalidad==-1}
@@ -216,7 +216,7 @@ export const LayoutCards = ()=>{
                         mensajeError={'Falta elegir un cuatrimestre para continuar'}>
                 <Cuatrimestre/>
             </GenericCard>
-            <GenericCard titulo="Elegí un horario" 
+            <GenericCard titulo="Elegí un horario preferencial de cursado" 
                         id='tl-horario' 
                         mostrar={datos.cuatrimestre>0}
                         error={datos.horario===-1}
