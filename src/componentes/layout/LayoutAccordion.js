@@ -1,15 +1,15 @@
 import React, { useState, useContext }  from 'react'
 import { Typography,  Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
-import { Carrera } from './Carrera'
-import { Cuatrimestre } from './Cuatrimestre'
-import { Programa } from './Programa'
-import { Ubicacion } from './Ubicacion'
-import { Modalidad } from './Modalidad'
-import { Horario } from './Horario'
-import { Instrumento } from './Instrumento'
-import { Comenzar } from './Comenzar'
-import { Nivel } from './Nivel'
+import { formularioContext } from '../../contextos/FormularioContext'
+import { Carrera } from '../feature/form/Carrera'
+import { Cuatrimestre } from '../feature/form/Cuatrimestre'
+import { Programa } from '../feature/form/Programa'
+import { Ubicacion } from '../feature/form/Ubicacion'
+import { Modalidad } from '../Modalidad'
+import { Horario } from '../Horario'
+import { Instrumento } from '../Instrumento'
+import { Comenzar } from '../feature/form/Comenzar'
+import { Nivel } from '../Nivel'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 

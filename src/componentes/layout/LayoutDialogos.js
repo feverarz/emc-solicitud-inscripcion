@@ -4,10 +4,10 @@ import {
         Box,
         makeStyles
      } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
-import {DatosPersonales} from './DatosPersonales'
-import {Dialogos} from './Dialogos'
-import {useHelper} from '../hooks/useHelper'
+import { formularioContext } from '../../contextos/FormularioContext'
+import {DatosPersonales} from '../feature/form/DatosPersonales'
+import {Dialogos} from '../feature/form/Dialogos'
+import {useHelper} from '../../hooks/useHelper'
 
 export const LayoutDialogos = ()=>{
     const { datos,

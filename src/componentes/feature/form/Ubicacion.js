@@ -8,7 +8,7 @@ import {
         MenuItem,
         FormControl
     } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
+import { formularioContext } from '../../../contextos/FormularioContext'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Dialogos } from './Dialogos'
 

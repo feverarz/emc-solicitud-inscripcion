@@ -5,10 +5,10 @@ import {Button,
         Grid,
         Typography
      } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
-import { useHelper } from '../hooks/useHelper'
+import { formularioContext } from '../../../contextos/FormularioContext'
+import { useHelper } from '../../../hooks/useHelper'
 import Checkcon  from '@mui/icons-material/Check';
-import { TerminosCondiciones } from './TerminosCondiciones';
+import { TerminosCondiciones } from '../../feature/resumen/TerminosCondiciones';
 
 export const Resumen = ({confirmarDatos})=>{
     const { datos, provincias, paises, carreras, instrumentos, niveles, programas, modalidades, horarios, cuatrimestres, tiposdoc, nacionalidades, sexos } = useContext(formularioContext)

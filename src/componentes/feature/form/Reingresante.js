@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react'
 import { Box, Typography, Button, Grid } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
+import { formularioContext } from '../../../contextos/FormularioContext'
 
 
 export const Reingresante = ({ setEsReingresante, setIniciarFormulario })=>{

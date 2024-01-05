@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
-import { formularioContext } from '../contextos/FormularioContext'
+import { formularioContext } from '../../../contextos/FormularioContext'
 import InputLabel from '@mui/material/InputLabel';
 import {MenuItem} from "@material-ui/core";
 import FormControl from '@mui/material/FormControl';

@@ -4,11 +4,11 @@ import {
         Box,
         makeStyles
         } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
+import { formularioContext } from '../../../contextos/FormularioContext'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import {DatosPersonales} from './DatosPersonales'
 import {Dialogos} from './Dialogos'
-import {useHelper} from '../hooks/useHelper'
+import {useHelper} from '../../../hooks/useHelper'
 
 export const Comenzar = ()=>{
     const { datos, cargando, datosPersonalesOK, nacionalidad, sexo}  = useContext(formularioContext)

@@ -1,6 +1,6 @@
 import './App.css';
-import { Formulario } from './componentes/Formulario'
-import Logo from '../src/componentes/Logo'
+import { Formulario } from './componentes/layout/Formulario'
+import Logo from '../src/componentes/shared/Logo'
 import { FormularioContextProvider } from './contextos/FormularioContext'
 import theme from './themeConfig'
 import { ThemeProvider } from '@material-ui/core'

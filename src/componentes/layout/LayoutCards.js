@@ -5,14 +5,14 @@ import {
         makeStyles,
         LinearProgress
      } from "@material-ui/core";
-import {Resumen,Finalizar,DatosPersonales,Carrera,Instrumento,Nivel,Programa,Modalidad,Horario,Cuatrimestre,Ubicacion,Telefonos,GenericCard} from './index'
-import {useHelper} from '../hooks/useHelper'
-import {useCards} from '../hooks/useCards'
-import {Dialogos} from '../componentes/Dialogos'
-import { BuscarAlumno } from './BuscarAlumno';
+import {Resumen,Finalizar,DatosPersonales,Carrera,Instrumento,Nivel,Programa,Modalidad,Horario,Cuatrimestre,Ubicacion,Telefonos,GenericCard} from '../index'
+import {useHelper} from '../../hooks/useHelper'
+import {useCards} from '../../hooks/useCards'
+import {Dialogos} from '../feature/form/Dialogos'
+import { BuscarAlumno } from '../feature/form/BuscarAlumno';
 import { Link } from '@mui/material';
-import { Reingresante } from './Reingresante';
-import Logo from './Logo';
+import { Reingresante } from '../feature/form/Reingresante';
+import Logo from '../shared/Logo';
 
 export const LayoutCards = ()=>{
     const { datos,

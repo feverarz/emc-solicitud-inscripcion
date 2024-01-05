@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef,useState} from 'react'
 import { Card, Box, CardActions, LinearProgress, Typography, CardContent, CardHeader } from "@material-ui/core";
-import {useHelper} from '../hooks/useHelper'
+import {useHelper} from '../../hooks/useHelper'
 import Alert from '@mui/material/Alert';
 
 export const GenericCard = ({titulo,children,id,mostrar,error,mensajeError,dobleMensajeError,noHacerScroll,subtitulo})=>{

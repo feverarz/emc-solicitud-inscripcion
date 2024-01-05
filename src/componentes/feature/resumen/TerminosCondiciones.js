@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Checkbox, Typography} from "@material-ui/core";
-import { Dialogos } from './Dialogos';
+import { Dialogos } from '../form/Dialogos';
 
 export const TerminosCondiciones = (props)=>{
     const [verTerminos,setVerTerminos]= useState(false)

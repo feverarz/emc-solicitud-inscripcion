@@ -1,5 +1,5 @@
 import React, { useContext }  from 'react'
-import { formularioContext } from '../contextos/FormularioContext'
+import { formularioContext } from '../../contextos/FormularioContext'
 import { LayoutCards } from './LayoutCards'
 import { Container } from '@mui/material';
 

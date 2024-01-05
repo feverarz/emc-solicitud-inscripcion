@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import { FormControlLabel, FormControl, RadioGroup, Radio, Box } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
+import { formularioContext } from '../../../contextos/FormularioContext'
 
 export const Cuatrimestre = ()=>{
     const { datos, handleChangeCuatrimestre, cuatrimestres } = useContext(formularioContext)

@@ -1,6 +1,6 @@
 import React, {useContext,useState} from 'react'
 import { Box, Select, makeStyles, InputLabel, MenuItem, FormControl } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
+import { formularioContext } from '../../../contextos/FormularioContext'
 
 export const SexosSelect = ()=>{
     const { 

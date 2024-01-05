@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { TextField, Box } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
+import { formularioContext } from '../../../contextos/FormularioContext'
 
 export const NumeroTarjeta = ()=>{
     const { datos, handleChangeTarjeta } = useContext(formularioContext)

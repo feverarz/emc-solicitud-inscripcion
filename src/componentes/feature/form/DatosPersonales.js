@@ -1,10 +1,10 @@
 import React, {useContext,useState,useEffect} from 'react'
 import {TextField, Grid, Box, Select, makeStyles, InputLabel, MenuItem, FormControl } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
-import { Nacionalidad } from '../componentes/Nacionalidad'
-import {useHelper} from '../hooks/useHelper'
-import {SexosSelect} from '../componentes/SexosSelect'
-import {FechaNacimiento} from '../componentes/FechaNacimiento'
+import { formularioContext } from '../../../contextos/FormularioContext'
+import { Nacionalidad } from './Nacionalidad'
+import {useHelper} from '../../../hooks/useHelper'
+import {SexosSelect} from './SexosSelect'
+import {FechaNacimiento} from './FechaNacimiento'
 
 export const DatosPersonales = ()=>{
     const { datos,

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { TextField, Box, Switch, FormGroup, FormControlLabel, Select, makeStyles, MenuItem, FormControl, Button, Grid, InputLabel } from "@material-ui/core";
-import { formularioContext } from '../contextos/FormularioContext'
+import { formularioContext } from '../../../contextos/FormularioContext'
 import {Dialogos} from './Dialogos'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
