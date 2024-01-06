@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Axios from 'axios'
 
 export const useTablasGenerales = ()=>{
@@ -52,10 +52,10 @@ export const useTablasGenerales = ()=>{
                 Axios.get(`${process.env.REACT_APP_API_BASE}/api/tablasgenerales/apitiposdoc`),
                 Axios.get(`${process.env.REACT_APP_API_BASE}/api/tablasgenerales/apicarreras`)])
             
-                setProvincias(vector[1].data.map(item=>item.nombre=='NN' ? {...item,nombre:'~ Otra provincia'}:{...item,nombre:item.nombre.trim()}).sort((a,b)=>a.nombre.localeCompare(b.nombre)))
-                setPaises(vector[0].data.map(item=>item.nombre=='NN' ? {...item,nombre:'~ Otro país'}:item).sort((a,b)=>a.nombre.localeCompare(b.nombre)))
-                setInstrumentos(vector[2].data.filter(item=>item.inscripcion_web==true))
-                setNacionalidades(vector[3].data.filter(item=>!item.nombre.toUpperCase().includes('ARGENT')).map(item=>item.nombre=='NN' ? {...item,nombre:'~ Otra nacionalidad'}:item).sort((a,b)=>a.nombre.localeCompare(b.nombre)))
+                setProvincias(vector[1].data.map(item=>item.nombre==='NN' ? {...item,nombre:'~ Otra provincia'}:{...item,nombre:item.nombre.trim()}).sort((a,b)=>a.nombre.localeCompare(b.nombre)))
+                setPaises(vector[0].data.map(item=>item.nombre==='NN' ? {...item,nombre:'~ Otro país'}:item).sort((a,b)=>a.nombre.localeCompare(b.nombre)))
+                setInstrumentos(vector[2].data.filter(item=>item.inscripcion_web===true))
+                setNacionalidades(vector[3].data.filter(item=>!item.nombre.toUpperCase().includes('ARGENT')).map(item=>item.nombre==='NN' ? {...item,nombre:'~ Otra nacionalidad'}:item).sort((a,b)=>a.nombre.localeCompare(b.nombre)))
                                                     // quité la nacionalidad argentina porque se identifica con el switch
                 setHorarios(vector[4].data)
                 setCuatrimestres(vector[5].data)

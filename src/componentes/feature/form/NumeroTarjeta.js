@@ -8,7 +8,7 @@ export const NumeroTarjeta = ()=>{
     const filterKeys = (e)=>{
 
         if (!/[0-9]/.test(e.key)) {
-            if(!(e.key=='Backspace' || e.key=='Delete')){
+            if(!(e.key==='Backspace' || e.key==='Delete')){
                 e.preventDefault();
             }
         }

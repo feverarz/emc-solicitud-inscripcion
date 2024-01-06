@@ -2,7 +2,6 @@ import React, {useContext,useState,useEffect} from 'react'
 import {TextField, Grid, Box, Select, makeStyles, InputLabel, MenuItem, FormControl } from "@material-ui/core";
 import { formularioContext } from '../../../contextos/FormularioContext'
 import { Nacionalidad } from './Nacionalidad'
-import {useHelper} from '../../../hooks/useHelper'
 import {SexosSelect} from './SexosSelect'
 import {FechaNacimiento} from './FechaNacimiento'
 
@@ -21,7 +20,7 @@ export const DatosPersonales = ()=>{
 
 useEffect(() => {
     if(tiposdoc.length>0){
-        const tipodocumento = tiposdoc.filter(item=>item.id_insc_tipodoc==datos.tipo_doc)
+        const tipodocumento = tiposdoc.filter(item=>item.id_insc_tipodoc===datos.tipo_doc)
         setLongitudDoc(tipodocumento[0]?.longitud)
     }
 }, [datos.tipo_doc,tiposdoc])

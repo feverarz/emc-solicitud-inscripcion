@@ -23,7 +23,7 @@ export const BuscarAlumno = ({ setEsReingresante, setIniciarFormulario }) => {
 
     useEffect(() => {
         if (tiposdoc.length > 0) {
-            const tipodocumento = tiposdoc.filter(item => item.id_insc_tipodoc == datos.tipo_doc)
+            const tipodocumento = tiposdoc.filter(item => item.id_insc_tipodoc === datos.tipo_doc)
             setLongitudDoc(tipodocumento[0]?.longitud)
         }
     }, [datos.tipo_doc, tiposdoc])

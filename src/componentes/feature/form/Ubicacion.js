@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState } from 'react'
+import React, {useContext, useEffect, useState } from 'react'
 import {
         TextField, 
         Button, 
@@ -34,7 +34,7 @@ export const Ubicacion = ()=>{
     const [ errorProvincia, setErrorProvincia ] = useState(null)
 
     useEffect(()=>{
-        if(datos.pais==0 && (datos.otroPais.trim()=='' || datos.otraProvincia.trim()=='')){
+        if(datos.pais===0 && (datos.otroPais.trim()==='' || datos.otraProvincia.trim()==='')){
             setOtropais(true)
         }else{
             setOtropais(false)
@@ -42,8 +42,8 @@ export const Ubicacion = ()=>{
     },[datos.pais])
 
     useEffect(()=>{
-        if(datos.provincia==0 && datos.pais>0){
-            if(datos.otraProvincia.trim()==''){
+        if(datos.provincia===0 && datos.pais>0){
+            if(datos.otraProvincia.trim()===''){
                 setOtraProvincia(true)
             }
         }
@@ -51,7 +51,7 @@ export const Ubicacion = ()=>{
 
     useEffect(()=>{
 
-        if(datos.otraProvincia.trim()=='' && datos.provincia==0){
+        if(datos.otraProvincia.trim()==='' && datos.provincia===0){
             setOtraProvincia(true)
         }
     },[datos.otraProvincia])
@@ -78,27 +78,13 @@ export const Ubicacion = ()=>{
         },
       });
 
-    const procesarPaisIngresadoPromesa = ()=>{
-        return new Promise((resolve,reject)=>{
-            if(datos.otroPais.trim()==''){
-                 reject('El país ingresaso no es válido')
-            }
-    
-            if(datos.otraProvincia.trim()==''){
-                 reject('La provincia ingresada no es válida')
-            }
-            
-            resolve() 
-        })
-    }
-
     const procesarPaisIngresado = ()=>{
-            if(datos.otroPais.trim()==''){
+            if(datos.otroPais.trim()===''){
                  setErrorPais('El país ingresado no es válido')
                  return
             }
     
-            if(datos.otraProvincia.trim()==''){
+            if(datos.otraProvincia.trim()===''){
                  setErrorPais('La provincia ingresada no es válida')
                  return
             }
@@ -106,20 +92,8 @@ export const Ubicacion = ()=>{
             setOtropais(false) 
     }
     
-    const procesarProvinciaIngresadaPromesa = ()=>{
-        return  new Promise((resolve,reject)=>{
-            if(datos.otraProvincia.trim()==''){
-                 reject('La provincia ingresada no es válida')
-            }else{
-                setOtraProvincia(false)
-                resolve() 
-            }
-           
-        })
-    }
-    
     const procesarProvinciaIngresada = ()=>{
-            if(datos.otraProvincia.trim()==''){
+            if(datos.otraProvincia.trim()===''){
                  setErrorProvincia('La provincia ingresada no es válida')
             }else{
                 setOtraProvincia(false)
@@ -144,13 +118,6 @@ export const Ubicacion = ()=>{
         recuperaProvinciaAnterior()
         setOtraProvincia(false)
     }
-
-    const procesarCancelarProvinciaPromesa =()=>{
-
-        return new Promise((resolve,reject)=>{
-            resolve()
-        })
-}
 
     const classes = useStyle();
 
@@ -236,7 +203,7 @@ export const Ubicacion = ()=>{
                         onChange={handleChangeProvincia}
                         className={classes.selectprovincia}
                     >
-                        {provincias.filter(item=>item.id_pais==datos.pais).sort((a,b)=>a.nombre.localeCompare(b.nombre)).map(item=>{
+                        {provincias.filter(item=>item.id_pais===datos.pais).sort((a,b)=>a.nombre.localeCompare(b.nombre)).map(item=>{
                             return <MenuItem value={item.id_provincia}>{item.nombre}</MenuItem>
                         })}
 

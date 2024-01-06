@@ -37,7 +37,7 @@ export const Resumen = ({confirmarDatos})=>{
                <Grid item xs={8}  style={{textAlign:'left'}}>
                     <Typography variant="subtitle1">
                               {funcionDescripcion(nacionalidades,datos.nacionalidad,'id_nacionalidad',function(){
-                                   if(datos.nacionalidad==4){
+                                   if(datos.nacionalidad===4){
                                         return 'Argentina'
                                    }
                               })}
@@ -101,7 +101,13 @@ export const Resumen = ({confirmarDatos})=>{
                     <Typography variant="caption">Celular</Typography>
                </Grid> 
                <Grid item xs={8}  style={{textAlign:'left'}}>
-               <Typography variant="subtitle1">+{datos.cod_internacional}-{datos.cod_area}-{datos.celular}</Typography>
+                    <Typography variant="subtitle1">+{datos.celular}</Typography>
+               </Grid>
+               <Grid item xs={4}>
+                    <Typography variant="caption">Telefono de emergencia</Typography>
+               </Grid>   
+               <Grid item xs={8}  style={{textAlign:'left'}}>
+                    <Typography variant="subtitle1">+{datos.telefono_emergencia}</Typography>
                </Grid>  
                <Grid item xs={4}>
                     <Typography variant="caption">E-mail</Typography>
@@ -184,9 +190,9 @@ export const Resumen = ({confirmarDatos})=>{
 }
 
 const funcionDescripcion =(array,id,clave,callback)=>{
-     const registrosEncontrados = array.filter(item=>item[clave]==id)
+     const registrosEncontrados = array.filter(item=>item[clave]===id)
      if (registrosEncontrados.length > 0){
-          return  array.filter(item=>item[clave]==id)[0]?.nombre 
+          return  array.filter(item=>item[clave]===id)[0]?.nombre 
      }else{
           if(callback){
                return callback()
@@ -197,10 +203,10 @@ const funcionDescripcion =(array,id,clave,callback)=>{
 }
 
 const funcionDetalles =(array,id,clave)=>{
-     const registrosEncontrados = array.filter(item=>item[clave]==id)
+     const registrosEncontrados = array.filter(item=>item[clave]===id)
      if (registrosEncontrados.length > 0){
          
-          const detalle =  array.filter(item=>item[clave]==id)[0]?.descripcion 
+          const detalle =  array.filter(item=>item[clave]===id)[0]?.descripcion 
 
           if(detalle){
                return detalle
@@ -211,12 +217,12 @@ const funcionDetalles =(array,id,clave)=>{
 }
 
 const funcionDescripcionCarrera =(carreras,carrerasSeleccionadas)=>{
-     return  carrerasSeleccionadas.map(item=>carreras.filter(aux=>aux.id_carrera==item)[0].descripcion).join(' / ')
+     return  carrerasSeleccionadas.map(item=>carreras.filter(aux=>aux.id_carrera===item)[0].descripcion).join(' / ')
 }
 
 const describirPais = (datos,paises)=>{
      if(datos.pais>0){
-          const paisEncontrado = paises.filter(item=>item.id_pais==datos.pais)
+          const paisEncontrado = paises.filter(item=>item.id_pais===datos.pais)
                return  paisEncontrado[0]?.nombre 
      }else{
           return datos.otroPais
@@ -226,7 +232,7 @@ const describirPais = (datos,paises)=>{
 const describirProvincia = (datos,provincias)=>{
 
      if(datos.provincia>0){
-          const provinciaEncontrada = provincias.filter(item=>item.id_provincia==datos.provincia)
+          const provinciaEncontrada = provincias.filter(item=>item.id_provincia===datos.provincia)
           return  provinciaEncontrada[0]?.nombre 
      }else{
           return datos.otraProvincia

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef,useState} from 'react'
+import React, { useContext } from 'react'
 import {
         TextField, 
         Box,
@@ -39,7 +39,7 @@ export const Telefonos = ()=>{
     }
 
     return <Box sx={{display:'flex', flexDirection:'column'}}> 
-        {datos.pais==0 && datos.otroPais.trim()!='' && <Box sx={{marginTop:'1rem'}}>
+        {datos.pais===0 && datos.otroPais.trim()!=='' && <Box sx={{marginTop:'1rem'}}>
             <TextField helperText='Por ejemplo +54 para Argentina'
                                   InputProps={{
                                     startAdornment: <InputAdornment className={classes.prefijos} position="start">+</InputAdornment>,
@@ -64,7 +64,7 @@ export const Telefonos = ()=>{
                         name='celular'
                         placeholder='Tu número de celular'
                       InputProps={{
-                        startAdornment: <InputAdornment  className={classes.prefijos} position="start">+{obtenerCodigoPais()} {obtenerCodArea()}</InputAdornment>,
+                        startAdornment: <InputAdornment  className={classes.prefijos} position="start">+</InputAdornment>,
                       }}
             inputProps={{maxLength:obtenerLongitudTelefonoPermitida(), required:true}} value={datos.celular} onChange={handleChangeCelular} label="Número de celular" />
         </Box>
@@ -74,7 +74,7 @@ export const Telefonos = ()=>{
                      name='telefonoEmergencia'
                      placeholder='Un número de teléfono de emergencia de algún familiar'
                       InputProps={{
-                        startAdornment: <InputAdornment className={classes.prefijos} position="start">+{obtenerCodigoPais()} {obtenerCodArea()}</InputAdornment>,
+                        startAdornment: <InputAdornment className={classes.prefijos} position="start">+</InputAdornment>,
                       }}
             inputProps={{maxLength:obtenerLongitudTelefonoPermitida(), required:true}} value={datos.telefono_emergencia} onChange={handleChangeTelefonoEmergencia} label="Teléfono emergencia"  />
         </Box>

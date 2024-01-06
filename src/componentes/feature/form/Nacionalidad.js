@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { TextField, Box, Switch, FormGroup, FormControlLabel, Select, makeStyles, MenuItem, FormControl, Button, Grid, InputLabel } from "@material-ui/core";
+import { TextField, Box, Switch, FormControlLabel, Select, makeStyles, MenuItem, FormControl, Button, Grid, InputLabel } from "@material-ui/core";
 import { formularioContext } from '../../../contextos/FormularioContext'
 import {Dialogos} from './Dialogos'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -13,7 +13,7 @@ export const Nacionalidad = ()=>{
             handleChangeOtraNacionalidad,
             resetearNacionalidad
         } = useContext(formularioContext)
-    const [argentino,setArgentino] = useState(datos.nacionalidad==4 ? true : false)
+    const [argentino,setArgentino] = useState(datos.nacionalidad===4 ? true : false)
     const [otraNacionalidad,setOtraNacionalidad] = useState(false)
     const [error,setError] = useState(null)
 
@@ -30,9 +30,9 @@ export const Nacionalidad = ()=>{
      
     useEffect(()=>{
 
-        if(datos.nacionalidad==69 && datos.otraNacionalidad.trim()==''){
+        if(datos.nacionalidad===69 && datos.otraNacionalidad.trim()===''){
             setOtraNacionalidad(true)
-        }else if(datos.nacionalidad==4){
+        }else if(datos.nacionalidad===4){
             setArgentino(true)           
             setOtraNacionalidad(false)
         }
@@ -55,7 +55,7 @@ export const Nacionalidad = ()=>{
     }
 
     const procesarNacionalidadIngresada = ()=>{
-        if(datos.otraNacionalidad.trim()==''){
+        if(datos.otraNacionalidad.trim()===''){
              setError('La nacionalidad ingresada no es válida')
              return
         }

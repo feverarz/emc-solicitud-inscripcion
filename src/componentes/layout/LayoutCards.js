@@ -88,16 +88,6 @@ export const LayoutCards = ()=>{
         setDatosConfirmados(false)
     }
 
-    const procesarFinalizacion = ()=>{
-        setDatosConfirmados(false)
-    }
-
-    const iniciarImpresion = ()=>{
-        setImpresion(imprimir())
-    }
-
-    const classes = useStyle();
-
     if (cargando) {
         return <p>Cargando...</p>
     }
@@ -182,7 +172,6 @@ export const LayoutCards = ()=>{
             </GenericCard>
             <GenericCard titulo="Elegí un instrumento" 
                         id='tl-instrumento' 
-                        //mostrar={datos.carrera.trim()!=''}
                         mostrar={datos.carreras.length>0}
                         error={datos.instrumento===-1}
                         mensajeError={'Falta elegir un instrumento para continuar'}>
@@ -198,14 +187,14 @@ export const LayoutCards = ()=>{
             <GenericCard titulo="Elegí un programa" 
                             id='tl-programa'
                             mostrar={datos.nivel>0}
-                            error={datos.programa==-1}
+                            error={datos.programa===-1}
                             mensajeError={'Falta elegir un programa para continuar'}>
                 <Programa/>
             </GenericCard>
             <GenericCard titulo="Elegí una modalidad preferencial de cursado" 
                         id='tl-modalidad' 
                         mostrar={datos.programa>0}
-                        error={datos.modalidad==-1}
+                        error={datos.modalidad===-1}
                         mensajeError={'Falta elegir una modalidad para continuar'}>
                 <Modalidad/>
             </GenericCard>
