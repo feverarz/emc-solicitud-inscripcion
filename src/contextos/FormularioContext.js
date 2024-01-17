@@ -66,7 +66,11 @@ export const FormularioContextProvider = ({children})=>{
             alumnoNuevo, 
             setAlumnoNuevo, 
             alumnoActivo, 
-            resetForm
+            resetForm,
+            handleChangeCodAreaEmergencia,
+            codAreaEmergencia,
+            handleChangeCodAreaCelular,
+            codAreaCelular
         } = useFormulario()
 
     const { mensaje,
@@ -160,7 +164,11 @@ export const FormularioContextProvider = ({children})=>{
                              alumnoNuevo, 
                              setAlumnoNuevo, 
                              alumnoActivo, 
-                             resetForm
+                             resetForm,
+                             handleChangeCodAreaEmergencia,
+                             codAreaEmergencia,
+                             handleChangeCodAreaCelular,
+                             codAreaCelular
                              }}> 
         <div>
             {children}

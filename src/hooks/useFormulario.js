@@ -51,6 +51,8 @@ export const useFormulario = ()=>{
     const [ codigoFinal, setCodigoFinal ] = useState(null)
     const [ alumnoNuevo, setAlumnoNuevo ] = useState(null)
     const [ alumnoActivo, setAlumnoActivo ] = useState(false)
+    const [ codAreaCelular, setCodAreaCelular ] = useState('')
+    const [ codAreaEmergencia, setCodAreaEmergencia ] = useState('')
 
     const resetForm = () => {
         setDatos(objetoInicial)
@@ -138,6 +140,14 @@ export const useFormulario = ()=>{
             setDatos({...datos,telefono_emergencia:event.target.value.trim()==='' ? '' : event.target.value});
         }
     };
+
+    const handleChangeCodAreaEmergencia = (event) => {
+        setCodAreaEmergencia(event.target.value.trim())
+    }
+
+    const handleChangeCodAreaCelular = (event) => {
+        setCodAreaCelular(event.target.value.trim())
+    }
 
     const handleChangeCelular = (event) => {
         if(regex_solo_numeros.test(event.target.value.trim()) || event.target.value.trim()==='')
@@ -267,11 +277,15 @@ export const useFormulario = ()=>{
     };
 
     const mandarMensaje = async ()=>{
-        const objeto = {...datos}
+        const objeto = {
+            ...datos,
+            celular:codAreaCelular + datos.celular,
+            telefono_emergencia: codAreaEmergencia + datos.telefono_emergencia,
+        }
 
         try {
 //            const {data} = await Axios.post(process.env.NODE_ENV ==='development' ? 'http://localhost:3002/api/tablasgenerales/nuevoalumno' : 'http://190.111.232.123:5010/api/tablasgenerales/nuevoalumno',objeto,{
-            const {data} = await Axios.post(`${process.env.REACT_APP_API_BASE}/api/tablasgenerales/nuevoalumno`,objeto,{
+            const {data} = await Axios.post(`${process.env.REACT_APP_API_BASE}/api/tablasgenerales/nuevoalumno`,objeto, {
             headers: {
                   'content-type': 'application/json'
                 }})
@@ -320,9 +334,8 @@ export const useFormulario = ()=>{
     async function verificarAlumnoExistente(tipo_doc, dni) {
 
         try{
-            console.log(dni)
             const { data } = await Axios.get(`${process.env.REACT_APP_API_BASE}/api/alumnos/verificar-dni/${dni}`)
-            console.log(data)
+
             if (data.Existe) {
                 setDatos({...datos,documento:dni, tipo_doc:tipo_doc});
                 setAlumnoNuevo(false)
@@ -685,7 +698,11 @@ export const useFormulario = ()=>{
             alumnoNuevo, 
             setAlumnoNuevo, 
             alumnoActivo,
-            resetForm
+            resetForm,
+            handleChangeCodAreaEmergencia,
+            codAreaEmergencia,
+            handleChangeCodAreaCelular,
+            codAreaCelular
         }
 }
 

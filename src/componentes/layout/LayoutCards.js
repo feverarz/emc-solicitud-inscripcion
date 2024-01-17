@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { 
         Box ,
         Typography,
-        makeStyles,
         LinearProgress
      } from "@material-ui/core";
 import {Resumen,Finalizar,DatosPersonales,Carrera,Instrumento,Nivel,Programa,Modalidad,Horario,Cuatrimestre,Ubicacion,Telefonos,GenericCard} from '../index'
@@ -19,7 +18,6 @@ export const LayoutCards = ()=>{
             error,
             limpiarError,
             cargando,
-            imprimir,
             datosPersonalesOK,
             datosUbicacionOK,
             datosContactoOK,
@@ -31,7 +29,6 @@ export const LayoutCards = ()=>{
     const [activarLoading,setActivarLoading] =useState(false)
     const solicitudPreparada =  useRef(false)
     const [datosConfirmados,setDatosConfirmados] = useState(false)
-    const [impresion,setImpresion] = useState("")
     const [esReingresante, setEsReingresante] = useState(null)
     const [iniciarFormulario, setIniciarFormulario ] = useState(false)
     const [habilitarFin, setHabilitarFin ] = useState(false)
@@ -48,22 +45,6 @@ export const LayoutCards = ()=>{
     };
 
 
-
-    const useStyle = makeStyles({
-        selectpais: {
-            background:datos.pais > 0 ? 'white' : '#D3D3D3',
-            color:datos.pais > 0 ? 'black' : 'gray'
-        },
-        selectprovincia: {
-            background:datos.provincia > 0 ? 'white' : '#D3D3D3',
-            color:datos.provincia > 0 ? 'black' : 'gray'
-        },
-        prueba:{
-            background:'black',
-            color:'white'
-        }
-      });
-
     useEffect(()=>{
             if(datosPersonalesOK()[0] && solicitudPreparada.current===false){
                 setActivarLoading(true)
@@ -78,6 +59,7 @@ export const LayoutCards = ()=>{
                 setActivarLoading(false)
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ,[datos])
 
     const confirmarDatos = ()=>{
@@ -242,7 +224,7 @@ export const LayoutCards = ()=>{
                         <Box>
                         <p>Por favor comunícate con administración informando el código de error:</p>
                         <h3>{error}</h3>
-                        <a target="_blank" href="http://www.escuelademusica.org/contacto/">Abrir la página de contacto</a>
+                        <a target="_blank" rel="noopener noreferrer" href="http://www.escuelademusica.org/contacto/">Abrir la página de contacto</a>
                         </Box>
         </Dialogos>
         <Dialogos open={codigoFinal} 
@@ -256,7 +238,7 @@ export const LayoutCards = ()=>{
                             <br></br>
                             <div>
                                 <div>
-                                    <a href='https://wa.link/17hzkn' target='_blank'>ir a Whatsapp</a>
+                                    <a href='https://wa.link/17hzkn' rel="noopener noreferrer" target='_blank'>ir a Whatsapp</a>
                                     <br></br>
                                     <br></br>
                                     Número Whatsapp: (+54 11) 6441 – 1352
@@ -270,11 +252,10 @@ export const LayoutCards = ()=>{
                             </div>
                             <h4>Muchas gracias!</h4>
                             {/*<Button onClick={iniciarImpresion}>Imprimir</Button>*/}
-                            <a target="_blank" href="http://www.escuelademusica.org/contacto/">Abrir la página de contacto</a>
+                            <a target="_blank" rel="noopener noreferrer" href="http://www.escuelademusica.org/contacto/">Abrir la página de contacto</a>
                         </Box>
                         <Logo width={'300'}></Logo>
         </Dialogos>
-        { impresion && <iframe title="PDF Viewer" src={impresion} width="100%" height="600" />}
      </Box>
 }
 
