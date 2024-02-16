@@ -70,7 +70,9 @@ export const FormularioContextProvider = ({children})=>{
             handleChangeCodAreaEmergencia,
             codAreaEmergencia,
             handleChangeCodAreaCelular,
-            codAreaCelular
+            codAreaCelular,
+            setComprobantePago,
+            comprobantePago 
         } = useFormulario()
 
     const { mensaje,
@@ -168,7 +170,9 @@ export const FormularioContextProvider = ({children})=>{
                              handleChangeCodAreaEmergencia,
                              codAreaEmergencia,
                              handleChangeCodAreaCelular,
-                             codAreaCelular
+                             codAreaCelular,
+                             setComprobantePago,
+                             comprobantePago 
                              }}> 
         <div>
             {children}

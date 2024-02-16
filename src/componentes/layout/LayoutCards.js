@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { 
         Box ,
         Typography,
@@ -11,7 +11,9 @@ import {Dialogos} from '../feature/form/Dialogos'
 import { BuscarAlumno } from '../feature/form/BuscarAlumno';
 import { Link } from '@mui/material';
 import { Reingresante } from '../feature/form/Reingresante';
+import { TicketPago } from '../feature/resumen/TicketPago';
 import Logo from '../shared/Logo';
+import { formularioContext } from '../../contextos/FormularioContext';
 
 export const LayoutCards = ()=>{
     const { datos,
@@ -31,19 +33,7 @@ export const LayoutCards = ()=>{
     const [datosConfirmados,setDatosConfirmados] = useState(false)
     const [esReingresante, setEsReingresante] = useState(null)
     const [iniciarFormulario, setIniciarFormulario ] = useState(false)
-    const [habilitarFin, setHabilitarFin ] = useState(false)
-
-    useEffect(() => {
-        if (habilitarFin) {
-            console.log('habilitando');
-        }
-    }, [habilitarFin]);
-
-    const habilitar = () => {
-        setHabilitarFin(true)
-        console.log('habilitando');
-    };
-
+    const { comprobantePago } = useContext(formularioContext)
 
     useEffect(()=>{
             if(datosPersonalesOK()[0] && solicitudPreparada.current===false){
@@ -209,11 +199,12 @@ export const LayoutCards = ()=>{
                     subtitulo='' 
                     procesarCancelar = {procesarCancelarFinalizacion}
                     >
-                        <a onClick={habilitar} href={'https://ventasonline.payway.com.ar/web/tienda/3420/escuela-de-m%C3%BAsica-contempor%C3%A1nea'} target="_blank" rel="noreferrer">
+                        <a href={'https://ventasonline.payway.com.ar/web/tienda/3420/escuela-de-m%C3%BAsica-contempor%C3%A1nea'} target="_blank" rel="noreferrer">
                             Link de pago
                         </a>
                         <p color='red'>Una vez realizado el pago haz click en 'Generar la inscripción' para completar el formulario de inscripción</p>                                                
-                        <Fin habilitarFin={habilitarFin}></Fin>
+                        <TicketPago></TicketPago>
+                        <Fin habilitarFin={!!comprobantePago}></Fin> 
                 </Dialogos>
         </div>}
         <Dialogos open={error} 
@@ -251,7 +242,6 @@ export const LayoutCards = ()=>{
                                 </div>
                             </div>
                             <h4>Muchas gracias!</h4>
-                            {/*<Button onClick={iniciarImpresion}>Imprimir</Button>*/}
                             <a target="_blank" rel="noopener noreferrer" href="http://www.escuelademusica.org/contacto/">Abrir la página de contacto</a>
                         </Box>
                         <Logo width={'300'}></Logo>

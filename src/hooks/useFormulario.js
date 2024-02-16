@@ -53,7 +53,8 @@ export const useFormulario = ()=>{
     const [ alumnoActivo, setAlumnoActivo ] = useState(false)
     const [ codAreaCelular, setCodAreaCelular ] = useState('')
     const [ codAreaEmergencia, setCodAreaEmergencia ] = useState('')
-
+    const [ comprobantePago, setComprobantePago ] = useState(null)
+    
     const resetForm = () => {
         setDatos(objetoInicial)
     }
@@ -299,6 +300,30 @@ export const useFormulario = ()=>{
             // todo: aca podria crear algun flag para informar al front que el alumno existe o que ya está hecha la solicitud
             console.log(err.response)
             throw new Error(err.response.data.codigo)
+        }
+    }
+
+    const handleComprobantePagoUpload = async () => {
+        if (comprobantePago) {
+            const formData = new FormData();
+            const alumnoData = {
+                nombre: datos.nombre,
+                apellido: datos.apellido,
+                documento: datos.documento
+            }
+            formData.append('file', comprobantePago);
+            formData.append('data', JSON.stringify(alumnoData))
+    
+            try {
+                const response = await Axios.post(`${process.env.REACT_APP_API_BASE}/api/alumnos/comprobantepago`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+                return response.data
+            } catch (error) {
+                console.error('Error al subir el archivo:', error);
+            }
+        } else {
+          console.warn('No se ha seleccionado ningún archivo.');
         }
     }
 
@@ -597,8 +622,9 @@ export const useFormulario = ()=>{
 
     }
 
-    const finalizar = ()=>{
+    const finalizar = async ()=>{
         setError(null)
+        await handleComprobantePagoUpload();
         mandarMensaje()
         .then(codigo=>{
             setCodigoFinal(codigo)
@@ -702,7 +728,9 @@ export const useFormulario = ()=>{
             handleChangeCodAreaEmergencia,
             codAreaEmergencia,
             handleChangeCodAreaCelular,
-            codAreaCelular
+            codAreaCelular,
+            setComprobantePago,
+            comprobantePago 
         }
 }
 
